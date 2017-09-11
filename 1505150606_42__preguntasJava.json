@@ -1,0 +1,141 @@
+[{
+		"pregunta": "Cual de los siguientes identificadores es usado para definir una interfaz",
+		"respuestas": {
+			"1": {
+				"respuesta": "interface",
+				"esCorrecta": true
+			},
+			"2": {
+				"respuesta": "Interface",
+				"esCorrecta": false
+			},
+			"3": {
+				"respuesta": "inter",
+				"esCorrecta": false
+			}
+		}
+	}, {
+		"pregunta": "Cual modificador de acceso es usado en una interfaz",
+		"respuestas": {
+			"1": {
+				"respuesta": "private",
+				"esCorrecta": false
+			},
+			"2": {
+				"respuesta": "public",
+				"esCorrecta": true
+			},
+			"3": {
+				"respuesta": "default",
+				"esCorrecta": false
+			},
+			"4": {
+				"respuesta": "protected",
+				"esCorrecta": false
+			}
+		}
+	}, {
+		"pregunta": "Cual de los siguientes paquetes contienen todas las clases Collection",
+		"respuestas": {
+			"1": {
+				"respuesta": "java.lang",
+				"esCorrecta": false
+			},
+			"2": {
+				"respuesta": "java.net",
+				"esCorrecta": false
+			},
+			"3": {
+				"respuesta": "java.util",
+				"esCorrecta": true
+			},
+			"4": {
+				"respuesta": "java.awt",
+				"esCorrecta": false
+			}
+		}
+	}, {
+		"pregunta": "¿Cuál de las siguientes es la forma correcta de implementar la interfaz salario para la clase manager?",
+		"respuestas": {
+			"1": {
+				"respuesta": "class manager extends salary",
+				"esCorrecta": false
+			},
+			"2": {
+				"respuesta": "class manager implements salary",
+				"esCorrecta": true
+			},
+			"3": {
+				"respuesta": " class manager imports salary",
+				"esCorrecta": false
+			},
+			"4": {
+				"respuesta": "ninguna",
+				"esCorrecta": false
+			}
+		}
+	},
+
+	{
+		"pregunta": "¿Cuál de los siguientes metodos borra todos los elementos de la coleccion que invoca",
+		"respuestas": {
+			"1": {
+				"respuesta": "clear()",
+				"esCorrecta": true
+			},
+			"2": {
+				"respuesta": "delete()",
+				"esCorrecta": false
+			},
+			"3": {
+				"respuesta": "reset()",
+				"esCorrecta": false
+			},
+			"4": {
+				"respuesta": "refresh()",
+				"esCorrecta": false
+			}
+		}
+	}, {
+		"pregunta": "¿Cuál de los siguientes metodos debe ser definido por una clase implementando la interfaz java.lang.Runnable?",
+		"respuestas": {
+			"1": {
+				"respuesta": "void run()",
+				"esCorrecta": false
+			},
+			"2": {
+				"respuesta": "void start()",
+				"esCorrecta": false
+			},
+			"3": {
+				"respuesta": "public void run()",
+				"esCorrecta": true
+			},
+			"4": {
+				"respuesta": "public void start()",
+				"esCorrecta": false
+			}
+		}
+	}, {
+		"pregunta": "Que es cierto acerca de la herencia en Java",
+		"respuestas": {
+			"1": {
+				"respuesta": "Una clase puede heredar de multiples clases",
+				"esCorrecta": false
+			},
+			"2": {
+				"respuesta": "La herencia establece una relacion TIENE UN",
+				"esCorrecta": false
+			},
+			"3": {
+				"respuesta": "Accedo a los metodos de la clase padre a traves de super()",
+				"esCorrecta": true
+			},
+			"4": {
+				"respuesta": "La herencia no permite la sobrescritura",
+				"esCorrecta": false
+			}
+		}
+	}
+
+]
