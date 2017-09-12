@@ -1,0 +1,17 @@
+//Este archivo es utilizado para almacenar preguntas y es leido por el juego
+
+//Comentarios comienzan con "//"
+//Se pueden dejar lineas en blanco
+
+//Formato apropiado para agregar pregunta es:
+//pregunta ; respuesta correcta ; respuesta incorrecta ; respuesta incorrecta ; respuesta incorrecta ; respuesta incorrecta
+//Terminos separados por punto-y-coma
+
+Cual de los siguientes identificadores es usado para definir una interfaz? ; interface ; Interface ; inter
+Cual modificador de acceso es usado en una interfaz? ; public ; private ; default ; protected
+Cual de los siguientes paquetes contienen todas las clases Collection? ; java.util ; java.lang ; java.net ; java.awt
+Cual de las siguientes es la forma correcta de implementar la interfaz salario para la clase manager? ; class manager implements salary ; class manager extends salary ; class manager imports salary ; ninguna
+Cual de los siguientes metodos borra todos los elementos de la coleccion que invoca? ; clear() ; delete() ; reset() ; refresh()
+Cual de los siguientes metodos debe ser definido por una clase implementando la interfaz java.lang.Runnable? ; public void run() ; void run() ; void start() ; public void start()
+Que es cierto acerca de la herencia en Java? ; Accedo a los metodos de la clase padre a traves de super() ; Una clase puede heredar de multiples clases ; La herencia establece una relacion TIENE UN ; La herencia no permite la sobrescritura
+
