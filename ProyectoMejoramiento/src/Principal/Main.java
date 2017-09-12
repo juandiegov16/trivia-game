@@ -11,7 +11,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -23,17 +22,11 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         // This loads the FXML files for the GUI
-        Parent root = FXMLLoader.load(getClass().getResource("quizWindow.fxml"));
-        
-        // Adds the icon        
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
-
+        Parent root = FXMLLoader.load(getClass().getResource("quizWindow.fxml"));                
         // Loads the CSS for the FXML
-        root.getStylesheets().add("application/lightTheme.css");
+        root.getStylesheets().add("Principal/lightTheme.css");
         primaryStage.setResizable(false);
-        
-  	// Did this to preserve "nice-lookingness" of the GUI
-        primaryStage.setTitle("Gunvir's Quiz Game!");
+        primaryStage.setTitle("Quien quiere pasar POO?");
         primaryStage.setOnCloseRequest((event -> {
   	// Terminates the scheduled TimerTask to display next question
             Platform.exit();
@@ -42,10 +35,8 @@ public class Main extends Application{
         
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-    }    
-    /**
-     * @param args the command line arguments
-     */
+    }  
+    
     public static void main(String[] args) {
         launch(args);        
     }
