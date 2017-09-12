@@ -30,8 +30,10 @@ public class Pregunta {
             BufferedReader bufferedReader = 
                 new BufferedReader(fileReader);
 
-            while((line = bufferedReader.readLine()) != null) {
+            while(((line = bufferedReader.readLine()) != null)) {
+                if (!(line.startsWith("//"))){
                 System.out.println(line);
+                }
             }   
 
             // Always close files.

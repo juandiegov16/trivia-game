@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Principal extends Application{
     
     public static void main(String[] args) {
         cargarPreguntas("PreguntasJava1.txt");
+        Platform.exit();
     
     }
     
