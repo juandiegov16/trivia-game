@@ -18,37 +18,7 @@ import java.util.Objects;
  *
  * @author Juandi
  */
-public class Pregunta {
-    public static String cargarPreguntas(String fileName){
-        String line = null;    
-        try {            
-            FileReader fileReader =
-                    new FileReader(fileName);            
-            
-            BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
-            
-            while(((line = bufferedReader.readLine()) != null)) {
-                if (!(line.startsWith("//"))){
-                    System.out.println(line);
-                }
-            }
-            
-            // Siempre cerrar archivos
-            bufferedReader.close();         
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                    "No se pudo abrir archivo '" +
-                            fileName + "'");                
-        }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error leyendo archivo '"
-                            + fileName + "'");            
-        }
-        return null;
-    }
+public class Pregunta {    
     String enunciado;
     
     public Pregunta (String enunciado){

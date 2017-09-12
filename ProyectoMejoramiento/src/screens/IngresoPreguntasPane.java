@@ -6,11 +6,13 @@
 package screens;
 
 
+import application.Principal;
 import data.Almacenamiento;
 import data.Pregunta;
 import data.Respuesta;
 import java.util.HashSet;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -36,10 +38,10 @@ public class IngresoPreguntasPane {
                 + "1 por línea/Mínimo 2, máximo 5.");        
         txtRespuestas = new TextArea();
         btnIngresar = new Button("Ingresar Pregunta");
-        btnSiguiente = new Button("Siguiente");        
+        btnSiguiente = new Button("Ir a Base de Datos");        
         
         btnIngresar.setOnMouseClicked(MouseEvent -> clicBtnIngresar());
-        //btnSiguiente.setOnMouseClicked(MouseEvent -> clicBtnSiguiente());
+        btnSiguiente.setOnMouseClicked(MouseEvent -> clicBtnSiguiente());
     
         root.getChildren().addAll(lblPregunta, txtPregunta, lblRespuestas,
                 txtRespuestas, btnIngresar, btnSiguiente);
@@ -61,6 +63,11 @@ public class IngresoPreguntasPane {
         }
         Almacenamiento.getPreguntas().add(new Pregunta(txtPregunta.getText()));
         Almacenamiento.getMapaPR().put(new Pregunta(txtPregunta.getText()), respuestas);
+    }
+    
+    void clicBtnSiguiente(){
+        Scene s = new Scene(new BaseDatos().getRoot());
+        Principal.sPrimario.setScene(s);
     }
     
     

@@ -42,6 +42,9 @@ public class BaseDatos {
         
         cbPreguntas.setOnMouseClicked(MouseEvent -> clicChoice());
     }
+    public BorderPane getRoot() {
+        return root;
+    }
     
     void clicChoice(){
             box.getChildren().clear();

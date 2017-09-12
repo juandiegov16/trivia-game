@@ -11,4 +11,3 @@ Cual de las siguientes es la forma correcta de implementar la interfaz salario p
 Cual de los siguientes metodos borra todos los elementos de la coleccion que invoca?;clear();delete();reset();refresh()
 Cual de los siguientes metodos debe ser definido por una clase implementando la interfaz java.lang.Runnable?;public void run();void run();void start();public void start()
 Que es cierto acerca de la herencia en Java?;Accedo a los metodos de la clase padre a traves de super();Una clase puede heredar de multiples clases;La herencia establece una relacion TIENE UN;La herencia no permite la sobrescritura
-
