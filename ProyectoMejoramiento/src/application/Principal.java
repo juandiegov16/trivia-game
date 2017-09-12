@@ -6,23 +6,31 @@
 package application;
 
 
+import data.Pregunta;
+import static data.Pregunta.cargarPreguntas;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Juandi
  */
-public class Main extends Application{
-    
+public class Principal extends Application{
+    static ArrayList<Pregunta> questions;
     
     public static void main(String[] args) {
-        launch(args);        
+        cargarPreguntas("PreguntasJava1.txt");
+    
     }
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         
+
     }
     
 }
