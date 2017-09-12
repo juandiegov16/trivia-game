@@ -8,6 +8,7 @@ package application;
 // Esta clase maneja las preguntas y su respectiva información
 // Todas las preguntas son instancias de esta clase
 
+import controllers.Controlador;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -171,7 +172,7 @@ public class Pregunta {
         // Revisa si todas las preguntas han sido utilizadas; en caso positivo, termina
 
         if (preguntas.size() == contadorPregunta) {
-            Controlador.finished(puntaje, preguntasCorrectas);
+            Controlador.terminado(puntaje, preguntasCorrectas);
         }
 
         // Si el programa llega hasta aquí, significa que no hay más preguntas

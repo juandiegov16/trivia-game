@@ -20,30 +20,31 @@ import javafx.stage.Stage;
  */
 public class Main extends Application{
     
+    
+    public static void main(String[] args) {
+        launch(args);        
+    }
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // This loads the FXML files for the GUI
-        Parent root = FXMLLoader.load(getClass().getResource("quizWindow.fxml"));
+        // Carga el FXML
+        Parent root = FXMLLoader.load(getClass().getResource("resources/quizWindow.fxml"));
         
-        // Adds the icon        
+        // Agrega el icono        
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         
-        // Loads the CSS for the FXML
-        root.getStylesheets().add("application/lightTheme.css");
+        // Carga la CSS para el FXML
+        root.getStylesheets().add("resources/lightTheme.css");
         primaryStage.setResizable(false);
         primaryStage.setTitle("Quien quiere pasar POO?");
         primaryStage.setOnCloseRequest((event -> {
-  	// Terminates the scheduled TimerTask to display next question
+            // Termina TimerTask para mostrar siguiente pregunta
             Platform.exit();
             System.exit(0);
         }));
         
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-    }  
-    
-    public static void main(String[] args) {
-        launch(args);        
     }
     
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package application;
+package controllers;
 
+import application.Pregunta;
 import javafx.fxml.FXML;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,8 +22,29 @@ import java.util.TimerTask;
  * @author Juandi
  */
 public class Controlador {
+    // variables
+    static ArrayList<Pregunta> preguntas;
+    static int porcentaje;
+    static int valorPausa = 1500;
+    // Muestra puntaje cuando se responden todas las preguntas
+    public static void terminado(int puntaje, int preguntasCorrectas) {
+        // Calcula porcentaje de correctas
+        if (preguntasCorrectas == 0) { porcentaje = 0; }
+        else { porcentaje = (int) ((double)preguntasCorrectas/(double)preguntas.size() * 100); }
+        
+        // Crea alerta; preguntas correctas
+        Alert finish = new Alert(Alert.AlertType.INFORMATION);
+        finish.setTitle("Has ganado!");
+        finish.setHeaderText("Puntaje: " + puntaje);
+        finish.setContentText("Preguntas correctas: " + preguntasCorrectas + " de " + preguntas.size() + " (" + porcentaje + "%)");
+        finish.getDialogPane().getStylesheets().add(Pregunta.class.getResource("resources/lightTheme.css").toExternalForm());
+        finish.showAndWait();        
+        // Exits
+        Platform.exit();
+        System.exit(0);
+    }
     
-    // Declaring all UI objects
+    // Declara los objetos de la UI
     @FXML
     private Label etiquetaPregunta;
 
@@ -44,21 +66,17 @@ public class Controlador {
     @FXML
     private Label etiquetaPuntaje;
 
-    // variables
-    static ArrayList<Pregunta> preguntas;
-    static int porcentaje;
-    static int valorPausa = 1500;
 
 
     @FXML
-    void initialize() {  // This gets run once to initialize the event handlers and such
+    void initialize() {
 
         // Carga preguntas desde un txt
         preguntas = Pregunta.cargarPreguntas("PreguntasJava1.txt");
 
         Pregunta.setButtons(boton1, boton2, boton3, boton4);
 
-        // Displays the first question in the GUI
+        // Muestra primera pregunta en el GUI
         preguntas.get(Pregunta.getIndicePregunta()).mostrarPregunta(etiquetaPregunta, numeroPregunta);
 
         // Event handlers for the buttons calls method
@@ -69,7 +87,7 @@ public class Controlador {
     }
 
 
-    // Called when a button is clicked
+    // Llamado cuando se hace clic a un boton
     private void handleButtonAction(ActionEvent event) {
 
         boton1.setDisable(true);
@@ -77,43 +95,28 @@ public class Controlador {
         boton3.setDisable(true);
         boton4.setDisable(true);
 
-        // Checks to see if user pressed the correct button; changes score
-        // Also checks if all preguntas exhausted; exits if yes
-        // Uses getTarget() to get the button that was clicked
+        // Verifica si se presiono el boton correcto; cambia puntaje
+        // Tambien revisa si se han gastado todas las preguntas, en cuyo caso sale
+        // Utiliza getTarget() para obtener el boton presionado
         preguntas.get(Pregunta.getIndicePregunta()).verificarCorrecta((Button) event.getTarget(), preguntas, etiquetaPuntaje);
 
-        // This is needed to pause inbetween preguntas without stopping the UI thread
+        // Necesario para pausar entre preguntas sin detener la UI
         Timer time = new Timer();
         time.schedule(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    // Displays next question
+                    // Muestra siguiente pregunta
                     preguntas.get(Pregunta.getIndicePregunta()).mostrarPregunta(etiquetaPregunta, numeroPregunta);
                     boton1.setDisable(false);
                     boton2.setDisable(false);
                     boton3.setDisable(false);
                     boton4.setDisable(false);
-                }); } }, valorPausa); }
-
-
-    // This method is run when all preguntas have been answered and displays score
-    public static void finished(int score, int questionsCorrect) {
-        // Calculates porcentaje value
-        if (questionsCorrect == 0) { porcentaje = 0; }
-        else { porcentaje = (int) ((double)questionsCorrect/(double)preguntas.size() * 100); }
-
-        // Creates alert; tells score and preguntas correct
-        Alert finish = new Alert(Alert.AlertType.INFORMATION);
-        finish.setTitle("You Win!");
-        finish.setHeaderText("Score: " + score);
-        finish.setContentText("Questions Correct: " + questionsCorrect + " out of " + preguntas.size() + " (" + porcentaje + "%)");
-        finish.getDialogPane().getStylesheets().add(Pregunta.class.getResource("lightTheme.css").toExternalForm());
-        finish.showAndWait();
-
-        // Exits
-        Platform.exit();
-        System.exit(0);
+                });
+            }
+        }, valorPausa);
     }
+
+
     
 }
