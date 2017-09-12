@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 
 /**
@@ -18,40 +19,74 @@ import java.io.IOException;
  * @author Juandi
  */
 public class Pregunta {
-    
     public static String cargarPreguntas(String fileName){
         String line = null;    
-        try {
-            // FileReader reads text files in the default encoding.
-            FileReader fileReader = 
-                new FileReader(fileName);
-
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = 
-                new BufferedReader(fileReader);
-
+        try {            
+            FileReader fileReader =
+                    new FileReader(fileName);            
+            
+            BufferedReader bufferedReader =
+                    new BufferedReader(fileReader);
+            
             while(((line = bufferedReader.readLine()) != null)) {
                 if (!(line.startsWith("//"))){
-                System.out.println(line);
+                    System.out.println(line);
                 }
-            }   
-
-            // Always close files.
+            }
+            
+            // Siempre cerrar archivos
             bufferedReader.close();         
         }
         catch(FileNotFoundException ex) {
             System.out.println(
-                "Unable to open file '" + 
-                fileName + "'");                
+                    "No se pudo abrir archivo '" +
+                            fileName + "'");                
         }
         catch(IOException ex) {
             System.out.println(
-                "Error reading file '" 
-                + fileName + "'");                  
-            // Or we could just do this: 
-            // ex.printStackTrace();
+                    "Error leyendo archivo '"
+                            + fileName + "'");            
         }
         return null;
     }
+    String enunciado;
+    
+    public Pregunta (String enunciado){
+        this.enunciado = enunciado;
+    }
+
+    @Override
+    public String toString() {
+        return enunciado;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.enunciado);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pregunta other = (Pregunta) obj;
+        if (!Objects.equals(this.enunciado, other.enunciado)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+    
    
 }

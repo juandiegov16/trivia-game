@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Juandi
  */
-public class Juego {
+public class JuegoPane {
        
     
 }

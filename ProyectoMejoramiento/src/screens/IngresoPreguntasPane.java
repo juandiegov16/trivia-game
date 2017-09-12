@@ -9,6 +9,6 @@ package screens;
  *
  * @author Juandi
  */
-public class Registro{
-
+public class IngresoPreguntasPane {
+    
 }
