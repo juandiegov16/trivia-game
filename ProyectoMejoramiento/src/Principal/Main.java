@@ -5,12 +5,20 @@
  */
 package Principal;
 
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
 /**
  *
  * @author Juandi
  */
 public class Main {
-
+    
     /**
      * @param args the command line arguments
      */
