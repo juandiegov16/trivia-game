@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Principal;
+package application;
 
 
 import javafx.application.Application;
@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -22,9 +23,13 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         // This loads the FXML files for the GUI
-        Parent root = FXMLLoader.load(getClass().getResource("quizWindow.fxml"));                
+        Parent root = FXMLLoader.load(getClass().getResource("quizWindow.fxml"));
+        
+        // Adds the icon        
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        
         // Loads the CSS for the FXML
-        root.getStylesheets().add("Principal/lightTheme.css");
+        root.getStylesheets().add("application/lightTheme.css");
         primaryStage.setResizable(false);
         primaryStage.setTitle("Quien quiere pasar POO?");
         primaryStage.setOnCloseRequest((event -> {

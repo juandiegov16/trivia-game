@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Principal;
+package application;
 
 // Esta clase maneja las preguntas y su respectiva información
 // Todas las preguntas son instancias de esta clase
@@ -96,9 +96,9 @@ public class Pregunta {
         // Revisa si hay preguntas en el ArrayList; de otro modo bota alerta y sale
         if (preguntas.isEmpty()) {
             Alert preguntaVacia = new Alert(Alert.AlertType.WARNING);
-            preguntaVacia.setTitle("No Questions found");
-            preguntaVacia.setHeaderText("No Questions were found in " + filename);
-            preguntaVacia.setContentText("Make sure there are questions in " + filename + ".");
+            preguntaVacia.setTitle("No se encontraron preguntas");
+            preguntaVacia.setHeaderText("No se encontraron preguntas en " + filename);
+            preguntaVacia.setContentText("Asegúrese de que existan preguntas en " + filename + ".");
             preguntaVacia.getDialogPane().getStylesheets().add(Pregunta.class.getResource("lightTheme.css").toExternalForm());
             preguntaVacia.showAndWait();
             Platform.exit();
@@ -141,9 +141,7 @@ public class Pregunta {
         botonesCopia.remove(randInt);
         
         // Se remueve el boton correcto para facilitar el seteo de otros botones
-        //a equivocadas sin tener que validar
-        
-        
+        //a equivocadas sin tener que validar       
         
         // Revuelve el ArrayList para que los botones salgan en orden aleatorio
         Collections.shuffle(this.equivocadas);
@@ -153,8 +151,6 @@ public class Pregunta {
             b.setText(this.equivocadas.get(botonesCopia.indexOf(b)));
         }
     }
-
-
 
     // Verifica si respuesta seleccionada es correcta
     public void verificarCorrecta(Button b, ArrayList<Pregunta> preguntas, Label etiquetaPuntaje) {
@@ -168,33 +164,20 @@ public class Pregunta {
         }
         else {
             b.getStyleClass().add("equivocada");
-        // Makes button red
+        // Vuelve el boton rojo
             this.randButton.getStyleClass().add("correcta");
         }
 
-
-        // Checks if all preguntas have ben used; if yes, calls "finished" to show puntaje and exit
+        // Revisa si todas las preguntas han sido utilizadas; en caso positivo, termina
 
         if (preguntas.size() == contadorPregunta) {
-
             Controlador.finished(puntaje, preguntasCorrectas);
-
         }
 
-        // If the program has reached this far, means that there more preguntas
-
-        // Increments "contadorPregunta" and "indicePregunta" to keep track of the current pregunta
-
-        // Changes current pregunta label
-
+        // Si el programa llega hasta aquí, significa que no hay más preguntas
+        // Incrementa "contadorPregunta" y "indicePregunta" para rastrear la pregunta actual
+        
         contadorPregunta += 1;
-
         indicePregunta += 1;
-
     }
-
-    
-    
-    
-    
 }
