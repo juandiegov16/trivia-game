@@ -66,9 +66,14 @@ public class Almacenamiento {
             while(((line = bufferedReader.readLine()) != null)) {
                 if (!(line.startsWith("//"))){
                     List<String> listaLinea = new ArrayList<>(Arrays.asList(line.split(";")));
-                    System.out.println(line);
+
                     System.out.println(listaLinea);
-                    Almacenamiento.getPreguntas().add(new Pregunta(listaLinea.get(0).trim()));
+                    List resp = listaLinea.subList(1,listaLinea.size());
+                    System.out.println(resp);
+
+                    Almacenamiento.getPreguntas().add(new Pregunta(listaLinea.get(0)));
+                    
+                    
                     
                 }
             }

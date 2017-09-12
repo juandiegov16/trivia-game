@@ -48,16 +48,16 @@ public class IngresoPreguntasPane {
     }
     
     void clicBtnIngresar(){
-        String[] lines = txtRespuestas.getText().split("\n");
+        String[] line = txtRespuestas.getText().split("\n");
         
         HashSet <Respuesta> respuestas = new HashSet();
-        for (int i = 0; i < lines.length; i++){
+        for (int i = 0; i < line.length; i++){
             if (i == 0){
-                Respuesta respuestaC = new Respuesta(lines[i], true);
+                Respuesta respuestaC = new Respuesta(line[i], true);
                 respuestas.add(respuestaC);            
             }
             else{
-                Respuesta respuestaI = new Respuesta(lines[i], false);
+                Respuesta respuestaI = new Respuesta(line[i], false);
                 respuestas.add(respuestaI);                
             }       
         }
