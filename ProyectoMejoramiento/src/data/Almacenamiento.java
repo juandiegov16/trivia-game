@@ -14,10 +14,10 @@ import java.util.HashSet;
  */
 public class Almacenamiento {
     //HashSet para preguntas
-    static HashSet <Pregunta> preguntas = new HashSet();
+    public static HashSet <Pregunta> preguntas = new HashSet();
     
     //HashMap cuya clave sea preguntas, cuyo valor sea un hashSet de sus respuestas
-    static HashMap <Pregunta, HashSet<Respuesta>> mapaPR = new HashMap();
+    public static HashMap <Pregunta, HashSet<Respuesta>> mapaPR = new HashMap();
     
     
     //Getters y setters correspondientes

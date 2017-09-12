@@ -12,8 +12,8 @@ import java.util.Objects;
  * @author Juandi
  */
 public class Respuesta {
-    String texto;
-    boolean esCorrecta;
+    public String texto;
+    public boolean esCorrecta;
     
     public Respuesta(String texto, boolean esCorrecta){
         this.texto = texto;
