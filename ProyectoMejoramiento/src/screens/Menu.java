@@ -6,6 +6,7 @@
 package screens;
 
 import static application.Principal.sPrimario;
+import data.Almacenamiento;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -24,9 +25,15 @@ public class Menu {
         ingresoPreguntas = new Button("Ingreso de Preguntas");
         baseDeDatos = new Button("Base de Datos");
         
-        nuevoJuego.setOnMouseClicked(e -> sPrimario.setScene(new Scene(new JuegoPane().getRoot())));
-        ingresoPreguntas.setOnMouseClicked(e -> sPrimario.setScene(new Scene(new IngresoPreguntasPane().getRoot())));
-        baseDeDatos.setOnMouseClicked(e -> sPrimario.setScene(new Scene(new BaseDatos().getRoot())));
+        nuevoJuego.setOnMouseClicked(e -> 
+                sPrimario.setScene(new Scene(new RegistroPane().getRoot())));
+        ingresoPreguntas.setOnMouseClicked(e -> 
+                sPrimario.setScene(new Scene(new IngresoPreguntasPane().getRoot())));
+        baseDeDatos.setOnMouseClicked(e -> 
+                sPrimario.setScene(new Scene(new BaseDatos().getRoot())));
+        //Impresión de prueba
+//        baseDeDatos.setOnMouseClicked(e->
+//                Almacenamiento.getMapaPR().forEach((k,v)-> System.out.println(k+", "+v)));
         
         root.getChildren().addAll(nuevoJuego, ingresoPreguntas,baseDeDatos);
         

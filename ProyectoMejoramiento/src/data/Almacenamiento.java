@@ -61,12 +61,20 @@ public class Almacenamiento {
                 if (!(line.startsWith("//"))){
                     List<String> listaLinea = new ArrayList<>(Arrays.asList(line.split(";")));
                     //System.out.println(listaLinea); Impresión de prueba
-                    List resp = listaLinea.subList(1,listaLinea.size());
-                    Set<Respuesta> respuestas = new HashSet(resp);
+                    List <String >resp = listaLinea.subList(1,listaLinea.size());
+                    HashSet<Respuesta> respuestas = new HashSet();
+                    for (int i = 0; i < resp.size();i++){
+                        if (i == 0){
+                            respuestas.add(new Respuesta(resp.get(i), true));
+                        }
+                        else{
+                            respuestas.add(new Respuesta(resp.get(i), false));
+                        }                    
+                    }
                     //System.out.println(resp); Impresión de prueba
 
                     Almacenamiento.getPreguntas().add(new Pregunta(listaLinea.get(0)));
-                    Almacenamiento.getMapaPR().put(new Pregunta(listaLinea.get(0)), (HashSet<Respuesta>) respuestas);    
+                    Almacenamiento.getMapaPR().put(new Pregunta(listaLinea.get(0)), respuestas);    
                 }
             }
             //Impresiones de prueba, descomentar.

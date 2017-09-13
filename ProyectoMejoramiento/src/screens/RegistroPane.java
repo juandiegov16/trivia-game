@@ -5,10 +5,26 @@
  */
 package screens;
 
+import javafx.scene.layout.VBox;
+
 /**
  *
  * @author Juandi
  */
 public class RegistroPane{
+    VBox root;
+    
+    public RegistroPane(){
+        root = new VBox();
+    
+    
+    }
+
+    public VBox getRoot() {
+        return root;
+    }
+    
+    
+    
 
 }

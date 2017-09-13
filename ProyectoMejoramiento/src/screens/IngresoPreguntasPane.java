@@ -7,6 +7,7 @@ package screens;
 
 
 import application.Principal;
+import static application.Principal.sPrimario;
 import data.Almacenamiento;
 import data.Pregunta;
 import data.Respuesta;
@@ -28,7 +29,7 @@ public class IngresoPreguntasPane {
     Label lblPregunta, lblRespuestas;
     TextField txtPregunta;
     TextArea txtRespuestas;
-    Button btnIngresar, btnSiguiente;
+    Button btnIngresar, btnSiguiente, btnVolver;
     
     public IngresoPreguntasPane(){
         root = new VBox();
@@ -38,13 +39,16 @@ public class IngresoPreguntasPane {
                 + "1 por línea/Mínimo 2, máximo 5.");        
         txtRespuestas = new TextArea();
         btnIngresar = new Button("Ingresar Pregunta");
-        btnSiguiente = new Button("Ir a Base de Datos");        
+        btnSiguiente = new Button("Ir a Base de Datos");
+        btnVolver = new Button("Volver a menu");
         
         btnIngresar.setOnMouseClicked(MouseEvent -> clicBtnIngresar());
         btnSiguiente.setOnMouseClicked(MouseEvent -> clicBtnSiguiente());
+        btnVolver.setOnMouseClicked(MouseEvent ->
+                sPrimario.setScene(new Scene(new Menu().getRoot())));
     
         root.getChildren().addAll(lblPregunta, txtPregunta, lblRespuestas,
-                txtRespuestas, btnIngresar, btnSiguiente);
+                txtRespuestas, btnIngresar, btnSiguiente, btnVolver);
     }
     
     void clicBtnIngresar(){

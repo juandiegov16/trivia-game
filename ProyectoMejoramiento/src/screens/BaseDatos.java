@@ -5,11 +5,13 @@
  */
 package screens;
 
+import static application.Principal.sPrimario;
 import data.Almacenamiento;
 import data.Pregunta;
 import data.Respuesta;
 import java.util.HashMap;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
@@ -26,12 +28,14 @@ public class BaseDatos {
     VBox box;
     TextArea txtRespuestas;
     ChoiceBox cbPreguntas;
+    Button volver;
     
     public BaseDatos(){
         root = new BorderPane();
         box = new VBox();        
-        box.setPrefWidth(300);
+        box.setPrefWidth(400);
         txtRespuestas = new TextArea();
+        volver = new Button("Volver a menu");
         
         cbPreguntas = new ChoiceBox();        
         cbPreguntas.getItems().addAll(Almacenamiento.getPreguntas());
@@ -39,8 +43,11 @@ public class BaseDatos {
         root.setTop(cbPreguntas);
         root.setRight(txtRespuestas);
         root.setCenter(box);
+        root.setBottom(volver);
         
         cbPreguntas.setOnMouseClicked(MouseEvent -> clicChoice());
+        volver.setOnMouseClicked(MouseEvent ->
+                sPrimario.setScene(new Scene(new Menu().getRoot())));
     }
     public BorderPane getRoot() {
         return root;
@@ -54,7 +61,7 @@ public class BaseDatos {
                 Pregunta x = (Pregunta)cbPreguntas.getSelectionModel().getSelectedItem();
             
             
-            for(Respuesta respuesta: Almacenamiento.getMapaPR().get(x)){
+            for(Respuesta respuesta: Almacenamiento.mapaPR.get(x)){
                 Button btnRespuesta = new Button(respuesta.toString());
                 box.getChildren().add(btnRespuesta);
                 if (!mapaBR.containsKey(btnRespuesta) && !mapaBR.containsValue(respuesta)){
