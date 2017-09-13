@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Juandi
  */
-public class Respuesta {
+public class Respuesta{
     public String texto;
     public boolean esCorrecta;
     
@@ -50,4 +50,6 @@ public class Respuesta {
         }
         return true;
     }
+
+    
 }

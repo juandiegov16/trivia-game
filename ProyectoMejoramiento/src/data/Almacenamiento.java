@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -56,32 +57,24 @@ public class Almacenamiento {
             BufferedReader bufferedReader =
                     new BufferedReader(fileReader);
             
-//            FileWriter fileWriter =
-//                new FileWriter(fileName);
-//
-//            // Always wrap FileWriter in BufferedWriter.
-//            BufferedWriter bufferedWriter =
-//                new BufferedWriter(fileWriter);
-            
             while(((line = bufferedReader.readLine()) != null)) {
                 if (!(line.startsWith("//"))){
                     List<String> listaLinea = new ArrayList<>(Arrays.asList(line.split(";")));
-
-                    System.out.println(listaLinea);
+                    //System.out.println(listaLinea); Impresión de prueba
                     List resp = listaLinea.subList(1,listaLinea.size());
-                    System.out.println(resp);
+                    Set<Respuesta> respuestas = new HashSet(resp);
+                    //System.out.println(resp); Impresión de prueba
 
                     Almacenamiento.getPreguntas().add(new Pregunta(listaLinea.get(0)));
-                    
-                    
-                    
+                    Almacenamiento.getMapaPR().put(new Pregunta(listaLinea.get(0)), (HashSet<Respuesta>) respuestas);    
                 }
             }
-            
-            for(Pregunta p: Almacenamiento.getPreguntas()){
-                System.out.println(p.toString());
-            
-            }
+            //Impresiones de prueba, descomentar.
+//            for(Pregunta p: Almacenamiento.getPreguntas()){
+//                System.out.println(p.toString());            
+//            }
+//            
+//            Almacenamiento.getMapaPR().forEach((k,v)-> System.out.println(k+", "+v));
             
             // Siempre cerrar archivos
             bufferedReader.close();         

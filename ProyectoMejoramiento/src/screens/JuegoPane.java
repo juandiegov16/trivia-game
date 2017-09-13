@@ -7,12 +7,26 @@ package screens;
 
 import data.Pregunta;
 import java.util.ArrayList;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
  * @author Juandi
  */
 public class JuegoPane {
+       BorderPane root;
+       
+       
+    public JuegoPane(){
+        root = new BorderPane();
+    
+    
+    }   
+
+    public BorderPane getRoot() {
+        return root;
+    }
+       
        
     
 }

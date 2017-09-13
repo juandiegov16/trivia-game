@@ -15,7 +15,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -23,14 +23,14 @@ import javafx.scene.layout.HBox;
  */
 public class BaseDatos {
     BorderPane root;
-    HBox box;
+    VBox box;
     TextArea txtRespuestas;
     ChoiceBox cbPreguntas;
     
     public BaseDatos(){
         root = new BorderPane();
-        box = new HBox();        
-        box.setPrefWidth(350);
+        box = new VBox();        
+        box.setPrefWidth(300);
         txtRespuestas = new TextArea();
         
         cbPreguntas = new ChoiceBox();        
@@ -54,7 +54,7 @@ public class BaseDatos {
                 Pregunta x = (Pregunta)cbPreguntas.getSelectionModel().getSelectedItem();
             
             
-            for(Respuesta respuesta: Almacenamiento.mapaPR.get(x)){
+            for(Respuesta respuesta: Almacenamiento.getMapaPR().get(x)){
                 Button btnRespuesta = new Button(respuesta.toString());
                 box.getChildren().add(btnRespuesta);
                 if (!mapaBR.containsKey(btnRespuesta) && !mapaBR.containsValue(respuesta)){
@@ -62,14 +62,14 @@ public class BaseDatos {
             }
             
             for(Button btnRespuesta: mapaBR.keySet()){
-            btnRespuesta.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent MouseEvent) {
-                    txtRespuestas.clear();
-                    txtRespuestas.appendText((mapaBR.get(btnRespuesta)).toString() +
-                            "  -> Valor de verdad: " + (mapaBR.get(btnRespuesta)).esCorrecta);
-                }
-            });
+                btnRespuesta.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent MouseEvent) {
+                        txtRespuestas.clear();
+                        txtRespuestas.appendText((mapaBR.get(btnRespuesta)).toString() +
+                                "  -> Valor de verdad: " + (mapaBR.get(btnRespuesta)).esCorrecta);
+                    }
+                });
             }    
         }    
     }

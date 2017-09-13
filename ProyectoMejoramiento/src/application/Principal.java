@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import screens.IngresoPreguntasPane;
+import screens.Menu;
 
 /**
  *
@@ -30,7 +31,8 @@ public class Principal extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         sPrimario = primaryStage;
-        Scene s = new Scene(new IngresoPreguntasPane().getRoot());
+        Scene s = new Scene(new Menu().getRoot());
+        primaryStage.setTitle("Quién quiere pasar POO?");
         primaryStage.setScene(s);
         primaryStage.show();
 
