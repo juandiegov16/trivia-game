@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package datos;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,31 +20,55 @@ import java.util.List;
  * @author Juandi
  */
 public class Almacenamiento {
-    //HashSet para preguntas
+    /**
+     *HashSet para preguntas
+     */
     public static HashSet <Pregunta> preguntas = new HashSet();
     
-    //HashMap cuyas claves sean tipo Pregunta, valores serán HashSets de sus respectivas respuestas
+    /**
+     *HashMap cuyas claves sean tipo Pregunta, valores serán HashSets de sus respectivas respuestas
+     */
     public static HashMap <Pregunta, HashSet<Respuesta>> mapaPR = new HashMap();    
     
     //Getters y setters correspondientes
+
+    /**
+     * Devuelve lo contenido en el HashSet preguntas.
+     * @return
+     */
     public static HashSet<Pregunta> getPreguntas() {
         return preguntas;
     }
 
+    /**
+     * No utilizado.
+     * @param preguntas
+     */
     public static void setPreguntas(HashSet<Pregunta> preguntas) {
         Almacenamiento.preguntas = preguntas;
     }
 
+    /**
+     * Obtiene claves y valores del HashMap de Pregunta/Set de Respuestas.
+     * @return
+     */
     public static HashMap<Pregunta, HashSet<Respuesta>> getMapaPR() {
         return mapaPR;
     }
 
+    /**
+     * No utilizado.
+     * @param mapaPR
+     */
     public static void setMapaPR(HashMap<Pregunta, HashSet<Respuesta>> mapaPR) {
         Almacenamiento.mapaPR = mapaPR;
-    }
+    }    
     
-    
-    //Lee el archivo y agrega las preguntas con sus respuestas al programa.
+    /**
+     * Lee el archivo y agrega las preguntas con sus respuestas al programa.
+     * @param fileName
+     * @return
+     */
     public static String cargarPreguntas(String fileName){
         String line = null;    
         try {

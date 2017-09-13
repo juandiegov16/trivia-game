@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package screens;
+package pantallas;
 
 
-import application.Principal;
-import static application.Principal.sPrimario;
-import data.Almacenamiento;
-import data.Pregunta;
-import data.Respuesta;
+import aplicacion.Principal;
+import static aplicacion.Principal.sPrimario;
+import datos.Almacenamiento;
+import datos.Pregunta;
+import datos.Respuesta;
 import java.util.HashSet;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -31,6 +31,9 @@ public class IngresoPreguntasPane {
     TextArea txtRespuestas;
     Button btnIngresar, btnSiguiente, btnVolver;
     
+    /**
+     *Permite el registro manual de preguntas/respuestas, valida cantidad de respuestas.
+     */
     public IngresoPreguntasPane(){
         //Inicialización de elementos del Pane
         root = new VBox();
@@ -87,8 +90,11 @@ public class IngresoPreguntasPane {
         Scene s = new Scene(new BaseDatos().getRoot());
         Principal.sPrimario.setScene(s);
     }
-    
-    //Getter obligatorio para uso con escenas
+
+    /**
+     * Getter requerido para transicion a escena IngresoPreguntasPane.
+     * @return
+     */
     public VBox getRoot() {
         return root;
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package datos;
 
 import java.util.Objects;
 
@@ -11,29 +11,31 @@ import java.util.Objects;
  *
  * @author Juandi
  */
-public class Respuesta{
-    public String texto;
-    public boolean esCorrecta;
-    
-    //Constructor con dos atributos
-    public Respuesta(String texto, boolean esCorrecta){
-        this.texto = texto;
-        this.esCorrecta = esCorrecta;        
+public class Pregunta {    
+    String enunciado;
+    /**
+     * Constructor con un atributo String, facilita creación
+     * @param enunciado
+     */
+    public Pregunta (String enunciado){
+        this.enunciado = enunciado;
     }
-    
-    //Reescrito toString(), para poder crear los botones
+
+    //Reescrito el toString()
     @Override
     public String toString() {
-        return texto;
+        return enunciado;
     }
-
+    
+    //Reescrito hashCode()
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.texto);
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.enunciado);
         return hash;
     }
-
+    
+    //Reescrito el equals()
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -45,8 +47,8 @@ public class Respuesta{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Respuesta other = (Respuesta) obj;
-        if (!Objects.equals(this.texto, other.texto)) {
+        final Pregunta other = (Pregunta) obj;
+        if (!Objects.equals(this.enunciado, other.enunciado)) {
             return false;
         }
         return true;

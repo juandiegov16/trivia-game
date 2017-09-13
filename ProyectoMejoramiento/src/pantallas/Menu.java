@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package screens;
+package pantallas;
 
-import static application.Principal.sPrimario;
-import data.Almacenamiento;
+import static aplicacion.Principal.sPrimario;
+import datos.Almacenamiento;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -19,6 +19,10 @@ public class Menu {
     private VBox root;
     Button nuevoJuego, ingresoPreguntas, baseDeDatos;
 
+    /**
+     *Pantalla principal del juego, con opcion de jugar, registrar preguntas o
+     *revisar la base de datos.
+     */
     public Menu() {
         //Inicialización de elementos del pane Menu
         root = new VBox();

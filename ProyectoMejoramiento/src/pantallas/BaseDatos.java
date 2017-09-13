@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package screens;
+package pantallas;
 
-import static application.Principal.sPrimario;
-import data.Almacenamiento;
-import data.Pregunta;
-import data.Respuesta;
+import static aplicacion.Principal.sPrimario;
+import datos.Almacenamiento;
+import datos.Pregunta;
+import datos.Respuesta;
 import java.util.HashMap;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,9 +23,7 @@ import javafx.scene.layout.VBox;
  * @author Juandi
  */
 
-/*Esta pantalla nos muestra las preguntas y respuestas agregadas.
-Sirve en cierto modo, para poder probar el funcionamiento contestando cantidades
-distintos de preguntas (testeando los puntos seguros),y tal vez, hacer trampa
+/*
 */
 public class BaseDatos {
     BorderPane root;
@@ -34,6 +32,11 @@ public class BaseDatos {
     ChoiceBox cbPreguntas;
     Button volver;
     
+    /**
+     *Esta pantalla nos muestra las preguntas y respuestas agregadas;
+     *Sirve en cierto modo, para poder probar el funcionamiento contestando cantidades
+     *distintas de preguntas (testeando los puntos seguros).
+     */
     public BaseDatos(){
         //Inicializa elementos del panel BaseDatos
         root = new BorderPane();
@@ -58,6 +61,11 @@ public class BaseDatos {
         volver.setOnMouseClicked(MouseEvent ->
                 sPrimario.setScene(new Scene(new Menu().getRoot())));
     }
+
+    /**
+     * Getter requerido para transicion a la escena BaseDatos.
+     * @return
+     */
     public BorderPane getRoot() {
         return root;
     }

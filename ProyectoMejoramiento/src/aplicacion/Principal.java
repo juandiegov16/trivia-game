@@ -3,34 +3,42 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package application;
+package aplicacion;
 
-
-import static data.Almacenamiento.cargarPreguntas;
+import static datos.Almacenamiento.cargarPreguntas;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import screens.Menu;
+import pantallas.Menu;
 
 /**
- *
  * @author Juandi
  */
 public class Principal extends Application{
+    /**
+     *El stage donde mostraremos todas las posibles pantallas del juego.
+     */
     public static Stage sPrimario;
     
+    /**
+     * El espinazo de la ejecución del juego.
+     * @param args
+     */
     public static void main(String[] args) {
         //Aquí lee el archivo y agrega su contenido al programa
         cargarPreguntas("PreguntasJava1.txt");
-        //Ejecuta lo pertinente a JavaFX
         launch(args);
-        //Descomentar para hacer pruebas forzando cierre después de ciertos
-        //procesos
-        //Platform.exit();
-    
+        //Descomentar para hacer pruebas forzando cierre después de ciertos procesos
+        //Platform.exit();    
     }
     
+    /**
+     * Override requerido al extender Application;
+     * Ejecuta lo correspondiente a JavaFX.
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         sPrimario = primaryStage;
@@ -39,7 +47,7 @@ public class Principal extends Application{
         primaryStage.setTitle("Quién quiere pasar POO?");
         primaryStage.setScene(s);
         primaryStage.show();
-    }
+    }    
     
     //TODO: Crear Javadoc
     //TODO: Dibujar UML

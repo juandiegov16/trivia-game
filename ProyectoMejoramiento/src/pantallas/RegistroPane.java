@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package screens;
+package pantallas;
 
 import javafx.scene.layout.VBox;
 
@@ -15,6 +15,9 @@ public class RegistroPane{
     VBox root;
     //TODO: Crear resto de elementos
     
+    /**
+     * Permite ingresar y serializar usuarios/puntajes.
+     */
     public RegistroPane(){
         root = new VBox();
         //TODO: Inicializar elementos del Pane
@@ -22,9 +25,12 @@ public class RegistroPane{
     
     }
     
-    //TODO: Crear metodo para serializar usuarios y puntajes.
+    //TODO: Crear metodo para serializar usuarios y puntajes.   
 
-    //Getter requerido    
+    /**
+     * Getter requerido para transicion a escena RegistroPane.
+     * @return
+     */
     public VBox getRoot() {
         return root;
     }
