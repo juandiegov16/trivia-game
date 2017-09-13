@@ -7,10 +7,6 @@ package data;
 
 // Esta clase maneja las preguntas y su respectiva información
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Objects;
 
 
@@ -21,22 +17,26 @@ import java.util.Objects;
 public class Pregunta {    
     String enunciado;
     
+    //Constructor con un atributo, facilita creación
     public Pregunta (String enunciado){
         this.enunciado = enunciado;
     }
 
+    //Reescrito el toString()
     @Override
     public String toString() {
         return enunciado;
     }
-
+    
+    //Reescrito hashCode()
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 83 * hash + Objects.hashCode(this.enunciado);
         return hash;
     }
-
+    
+    //Reescrito el equals()
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -54,9 +54,4 @@ public class Pregunta {
         }
         return true;
     }
-    
-    
-    
-    
-   
 }

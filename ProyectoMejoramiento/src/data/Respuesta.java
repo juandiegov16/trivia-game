@@ -15,12 +15,13 @@ public class Respuesta{
     public String texto;
     public boolean esCorrecta;
     
+    //Constructor con dos atributos
     public Respuesta(String texto, boolean esCorrecta){
         this.texto = texto;
-        this.esCorrecta = esCorrecta;
-        
+        this.esCorrecta = esCorrecta;        
     }
-
+    
+    //Reescrito toString(), para poder crear los botones
     @Override
     public String toString() {
         return texto;
@@ -50,6 +51,4 @@ public class Respuesta{
         }
         return true;
     }
-
-    
 }

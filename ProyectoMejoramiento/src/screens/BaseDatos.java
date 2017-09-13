@@ -10,7 +10,6 @@ import data.Almacenamiento;
 import data.Pregunta;
 import data.Respuesta;
 import java.util.HashMap;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -23,6 +22,11 @@ import javafx.scene.layout.VBox;
  *
  * @author Juandi
  */
+
+/*Esta pantalla nos muestra las preguntas y respuestas agregadas.
+Sirve en cierto modo, para poder probar el funcionamiento contestando cantidades
+distintos de preguntas (testeando los puntos seguros),y tal vez, hacer trampa
+*/
 public class BaseDatos {
     BorderPane root;
     VBox box;
@@ -31,21 +35,26 @@ public class BaseDatos {
     Button volver;
     
     public BaseDatos(){
+        //Inicializa elementos del panel BaseDatos
         root = new BorderPane();
         box = new VBox();        
         box.setPrefWidth(400);
         txtRespuestas = new TextArea();
         volver = new Button("Volver a menu");
         
+        //Crea una caja de opciones con las preguntas almacenadas
         cbPreguntas = new ChoiceBox();        
         cbPreguntas.getItems().addAll(Almacenamiento.getPreguntas());
         
+        //Agrega (y de una vez otorga alineacion) a nuestros nodos
         root.setTop(cbPreguntas);
         root.setRight(txtRespuestas);
         root.setCenter(box);
         root.setBottom(volver);
         
+        //Evento que maneja la ChoiceBox
         cbPreguntas.setOnMouseClicked(MouseEvent -> clicChoice());
+        //Evento de transicion a Menu
         volver.setOnMouseClicked(MouseEvent ->
                 sPrimario.setScene(new Scene(new Menu().getRoot())));
     }
@@ -54,30 +63,29 @@ public class BaseDatos {
     }
     
     void clicChoice(){
-            box.getChildren().clear();
-            HashMap <Button, Respuesta> mapaBR = new HashMap();
-            
-            if (cbPreguntas.getSelectionModel().getSelectedItem()!= null){
-                Pregunta x = (Pregunta)cbPreguntas.getSelectionModel().getSelectedItem();
-            
-            
-            for(Respuesta respuesta: Almacenamiento.mapaPR.get(x)){
-                Button btnRespuesta = new Button(respuesta.toString());
-                box.getChildren().add(btnRespuesta);
-                if (!mapaBR.containsKey(btnRespuesta) && !mapaBR.containsValue(respuesta)){
-                    mapaBR.put(btnRespuesta, respuesta);}
-            }
-            
-            for(Button btnRespuesta: mapaBR.keySet()){
-                btnRespuesta.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent MouseEvent) {
-                        txtRespuestas.clear();
-                        txtRespuestas.appendText((mapaBR.get(btnRespuesta)).toString() +
-                                "  -> Valor de verdad: " + (mapaBR.get(btnRespuesta)).esCorrecta);
-                    }
-                });
-            }    
+        //Despeja la caja, para sólo mostrar botones correspondientes a pregunta escogida
+        box.getChildren().clear();
+        //Recopila datos requeridos para la escena BaseDatos
+        HashMap <Button, Respuesta> mapaBR = new HashMap();
+        
+        //Para selección de items de la ChoiceBox
+        if (cbPreguntas.getSelectionModel().getSelectedItem()!= null){
+            Pregunta x = (Pregunta)cbPreguntas.getSelectionModel().getSelectedItem();
+
+        //Para automatizar la creación de botones de respuestas de cada preguntas        
+        for(Respuesta respuesta: Almacenamiento.mapaPR.get(x)){
+            Button btnRespuesta = new Button(respuesta.toString());
+            box.getChildren().add(btnRespuesta);
+            if (!mapaBR.containsKey(btnRespuesta) && !mapaBR.containsValue(respuesta)){
+                mapaBR.put(btnRespuesta, respuesta);}}
+        
+        //Evento para mostrar respuestas con su valor de verdad
+        for(Button btnRespuesta: mapaBR.keySet()){
+            btnRespuesta.setOnMouseClicked((MouseEvent MouseEvent) -> {
+                txtRespuestas.clear();
+                txtRespuestas.appendText((mapaBR.get(btnRespuesta)).toString() +
+                        "  -> Valor de verdad: " + (mapaBR.get(btnRespuesta)).esCorrecta);
+            });}    
         }    
     }
 }

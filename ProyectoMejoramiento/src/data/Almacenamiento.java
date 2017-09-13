@@ -6,19 +6,14 @@
 package data;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
 
 /**
  *
@@ -28,7 +23,7 @@ public class Almacenamiento {
     //HashSet para preguntas
     public static HashSet <Pregunta> preguntas = new HashSet();
     
-    //HashMap cuya clave sea preguntas, cuyo valor sea un hashSet de sus respuestas
+    //HashMap cuyas claves sean tipo Pregunta, valores serán HashSets de sus respectivas respuestas
     public static HashMap <Pregunta, HashSet<Respuesta>> mapaPR = new HashMap();    
     
     //Getters y setters correspondientes
@@ -48,31 +43,45 @@ public class Almacenamiento {
         Almacenamiento.mapaPR = mapaPR;
     }
     
+    
+    //Lee el archivo y agrega las preguntas con sus respuestas al programa.
     public static String cargarPreguntas(String fileName){
         String line = null;    
-        try {            
+        try {
+            //Para lectura del archivo
             FileReader fileReader =
                     new FileReader(fileName);            
             
+            //BufferedReader para optimización de recursos
             BufferedReader bufferedReader =
                     new BufferedReader(fileReader);
             
+            //Lee línea por línea, verifica que tengan algo de texto
             while(((line = bufferedReader.readLine()) != null)) {
+                //Para ignorar las líneas de comentario en el archivo de texto
                 if (!(line.startsWith("//"))){
+                    //Crea una lista de Strings para cada línea a evaluar
                     List<String> listaLinea = new ArrayList<>(Arrays.asList(line.split(";")));
-                    //System.out.println(listaLinea); Impresión de prueba
+                    //Impresión de prueba del ArrayList(descomentar)
+                    //System.out.println(listaLinea);
+                    
+                    //Obtiene lista de Respuestas, en tipo String
                     List <String >resp = listaLinea.subList(1,listaLinea.size());
-                    HashSet<Respuesta> respuestas = new HashSet();
+                    //Creación de Respuestas (bajo el debido constructor) en un HashSet
+                    HashSet<Respuesta> respuestas = new HashSet();                    
                     for (int i = 0; i < resp.size();i++){
                         if (i == 0){
+                            //Identifica la respuesta correcta
                             respuestas.add(new Respuesta(resp.get(i), true));
                         }
                         else{
+                            //Identifica las respuestas incorrectas
                             respuestas.add(new Respuesta(resp.get(i), false));
                         }                    
                     }
-                    //System.out.println(resp); Impresión de prueba
-
+                    //System.out.println(resp); Impresión de prueba (descomentar)
+                    
+                    //Agrega Preguntas y Respuestas a nuestro HashSet y HashMap
                     Almacenamiento.getPreguntas().add(new Pregunta(listaLinea.get(0)));
                     Almacenamiento.getMapaPR().put(new Pregunta(listaLinea.get(0)), respuestas);    
                 }
@@ -80,25 +89,25 @@ public class Almacenamiento {
             //Impresiones de prueba, descomentar.
 //            for(Pregunta p: Almacenamiento.getPreguntas()){
 //                System.out.println(p.toString());            
-//            }
-//            
+//            }            
 //            Almacenamiento.getMapaPR().forEach((k,v)-> System.out.println(k+", "+v));
             
-            // Siempre cerrar archivos
+            // Siempre cerrar archivo, para optimizar recursos
             bufferedReader.close();         
         }
+        //Detalle de exception impreso en consola
         catch(FileNotFoundException ex) {
             System.out.println(
                     "No se pudo abrir archivo '" +
                             fileName + "'");                
         }
+        //Detalle de exception impreso en consola
         catch(IOException ex) {
             System.out.println(
                     "Error leyendo archivo '"
                             + fileName + "'");            
-        }
+        }        
+        //No nos afecta, por suerte. Es una maraña para evitar usar un método void.
         return null;
     }
-    
-    
 }

@@ -32,9 +32,11 @@ public class IngresoPreguntasPane {
     Button btnIngresar, btnSiguiente, btnVolver;
     
     public IngresoPreguntasPane(){
+        //Inicialización de elementos del Pane
         root = new VBox();
         lblPregunta = new Label("Pregunta");
         txtPregunta = new TextField();
+        //Instrucciones para agregar Preguntas/Respuestas
         lblRespuestas = new Label("Respuestas - Correcta en primera línea/"
                 + "1 por línea/Mínimo 2, máximo 5.");        
         txtRespuestas = new TextArea();
@@ -42,40 +44,50 @@ public class IngresoPreguntasPane {
         btnSiguiente = new Button("Ir a Base de Datos");
         btnVolver = new Button("Volver a menu");
         
+        //Eventos para botones (transicion de escena)        
         btnIngresar.setOnMouseClicked(MouseEvent -> clicBtnIngresar());
         btnSiguiente.setOnMouseClicked(MouseEvent -> clicBtnSiguiente());
         btnVolver.setOnMouseClicked(MouseEvent ->
                 sPrimario.setScene(new Scene(new Menu().getRoot())));
-    
+        
+        //Adición de nodos al root de IngresoPreguntasPane            
         root.getChildren().addAll(lblPregunta, txtPregunta, lblRespuestas,
                 txtRespuestas, btnIngresar, btnSiguiente, btnVolver);
     }
     
     void clicBtnIngresar(){
+        //Devuelve un arreglo con las líneas del TextArea como Strings
         String[] line = txtRespuestas.getText().split("\n");
         
+        //HashSet requerido previo agregación al mapa global
         HashSet <Respuesta> respuestas = new HashSet();
+        
         for (int i = 0; i < line.length; i++){
             if (i == 0){
+                //Respuesta correcta en indice 0
                 Respuesta respuestaC = new Respuesta(line[i], true);
                 respuestas.add(respuestaC);            
             }
             else{
+                //Itera y agrega respuestas incorrectas a partir de indice 1
                 Respuesta respuestaI = new Respuesta(line[i], false);
                 respuestas.add(respuestaI);                
             }       
         }
+        
+        //Agrega exitosamente Preguntas y sets de Respuesta mediante ingreso manual
         Almacenamiento.getPreguntas().add(new Pregunta(txtPregunta.getText()));
         Almacenamiento.getMapaPR().put(new Pregunta(txtPregunta.getText()), respuestas);
     }
     
+    //Transición de escena a la pantalla Base de Datos
+    //Para verificar lo agregado
     void clicBtnSiguiente(){
         Scene s = new Scene(new BaseDatos().getRoot());
         Principal.sPrimario.setScene(s);
     }
     
-    
-
+    //Getter obligatorio para uso con escenas
     public VBox getRoot() {
         return root;
     }

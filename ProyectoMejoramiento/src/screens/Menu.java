@@ -20,33 +20,43 @@ public class Menu {
     Button nuevoJuego, ingresoPreguntas, baseDeDatos;
 
     public Menu() {
+        //Inicialización de elementos del pane Menu
         root = new VBox();
         nuevoJuego = new Button("Nuevo Juego");
         ingresoPreguntas = new Button("Ingreso de Preguntas");
         baseDeDatos = new Button("Base de Datos");
         
+        //Sección estética
+        //Ancho de botones
+        nuevoJuego.setMaxWidth(Double.MAX_VALUE);
+        ingresoPreguntas.setMaxWidth(Double.MAX_VALUE);
+        baseDeDatos.setMaxWidth(Double.MAX_VALUE);        
+        //Espaciado de botones
+        root.setSpacing(20);
+        
+        //Eventos de transición de escena para botones del Menu
         nuevoJuego.setOnMouseClicked(e -> 
                 sPrimario.setScene(new Scene(new RegistroPane().getRoot())));
         ingresoPreguntas.setOnMouseClicked(e -> 
                 sPrimario.setScene(new Scene(new IngresoPreguntasPane().getRoot())));
         baseDeDatos.setOnMouseClicked(e -> 
                 sPrimario.setScene(new Scene(new BaseDatos().getRoot())));
-        //Impresión de prueba
+        
+        //Impresión de prueba del mapa con la estructura Pregunta-Set de Respuestas
+        //Descomentar para utilizar (NO remover el import de Almacenamiento)
 //        baseDeDatos.setOnMouseClicked(e->
-//                Almacenamiento.getMapaPR().forEach((k,v)-> System.out.println(k+", "+v)));
+//                Almacenamiento.getMapaPR().forEach((k,v)
+//                                -> System.out.println(k+", "+v)));
         
-        root.getChildren().addAll(nuevoJuego, ingresoPreguntas,baseDeDatos);
-        
+        //Adición de nodos al root
+        root.getChildren().addAll(nuevoJuego, ingresoPreguntas,baseDeDatos);        
     }
 
     /**
      * @return the root
      */
+    //Getter requerido
     public VBox getRoot() {
         return root;
     }
-    
-    
-    
-    
 }
