@@ -80,14 +80,14 @@ public class Almacenamiento {
             BufferedReader bufferedReader =
                     new BufferedReader(fileReader);
             
-            //Lee línea por línea, verifica que tengan algo de texto
+//            Lee línea por línea, verifica que tengan algo de texto
             while(((line = bufferedReader.readLine()) != null)) {
-                //Para ignorar las líneas de comentario en el archivo de texto
+//                Para ignorar las líneas de comentario en el archivo de texto
                 if (!(line.startsWith("//"))){
-                    //Crea una lista de Strings para cada línea a evaluar
+//                    Crea una lista de Strings para cada línea a evaluar
                     List<String> listaLinea = new ArrayList<>(Arrays.asList(line.split(";")));
-                    //Impresión de prueba del ArrayList(descomentar)
-                    //System.out.println(listaLinea);
+//                    Impresión de prueba del ArrayList(descomentar)
+//                    System.out.println(listaLinea);
                     
                     //Obtiene lista de Respuestas, en tipo String
                     List <String >resp = listaLinea.subList(1,listaLinea.size());

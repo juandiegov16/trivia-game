@@ -41,14 +41,13 @@ public class Principal extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        sPrimario = primaryStage;
-        //Nos muestra la pantalla Menu, para comenzar.
-        Scene s = new Scene(new Menu().getRoot());
+        sPrimario = primaryStage;               
         primaryStage.setTitle("Quién quiere pasar POO?");
+        //Nos muestra la pantalla Menu, para comenzar. 
+        Scene s = new Scene(new Menu().getRoot());
         primaryStage.setScene(s);
         primaryStage.show();
     }    
     
-    //TODO: Crear Javadoc
     //TODO: Dibujar UML
 }

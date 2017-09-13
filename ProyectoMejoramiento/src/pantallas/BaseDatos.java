@@ -41,7 +41,7 @@ public class BaseDatos {
         //Inicializa elementos del panel BaseDatos
         root = new BorderPane();
         box = new VBox();        
-        box.setPrefWidth(400);
+        box.setPrefWidth(300);
         txtRespuestas = new TextArea();
         volver = new Button("Volver a menu");
         
@@ -73,6 +73,7 @@ public class BaseDatos {
     void clicChoice(){
         //Despeja la caja, para sólo mostrar botones correspondientes a pregunta escogida
         box.getChildren().clear();
+        
         //Recopila datos requeridos para la escena BaseDatos
         HashMap <Button, Respuesta> mapaBR = new HashMap();
         

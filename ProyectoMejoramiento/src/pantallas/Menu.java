@@ -26,6 +26,7 @@ public class Menu {
     public Menu() {
         //Inicialización de elementos del pane Menu
         root = new VBox();
+        root.setPrefSize(320, 140);
         nuevoJuego = new Button("Nuevo Juego");
         ingresoPreguntas = new Button("Ingreso de Preguntas");
         baseDeDatos = new Button("Base de Datos");
@@ -40,7 +41,8 @@ public class Menu {
         
         //Eventos de transición de escena para botones del Menu
         nuevoJuego.setOnMouseClicked(e -> 
-                sPrimario.setScene(new Scene(new RegistroPane().getRoot())));
+                sPrimario.setScene(new Scene(new JuegoPane().getRoot())));
+        
         ingresoPreguntas.setOnMouseClicked(e -> 
                 sPrimario.setScene(new Scene(new IngresoPreguntasPane().getRoot())));
         baseDeDatos.setOnMouseClicked(e -> 
