@@ -13,13 +13,18 @@ import javafx.scene.layout.VBox;
  */
 public class RegistroPane{
     VBox root;
+    //TODO: Crear resto de elementos
     
     public RegistroPane(){
         root = new VBox();
+        //TODO: Inicializar elementos del Pane
     
     
     }
+    
+    //TODO: Crear metodo para serializar usuarios y puntajes.
 
+    //Getter requerido    
     public VBox getRoot() {
         return root;
     }

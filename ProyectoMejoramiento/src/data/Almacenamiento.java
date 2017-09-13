@@ -106,8 +106,7 @@ public class Almacenamiento {
             System.out.println(
                     "Error leyendo archivo '"
                             + fileName + "'");            
-        }        
-        //No nos afecta, por suerte. Es una maraña para evitar usar un método void.
+        }
         return null;
     }
 }

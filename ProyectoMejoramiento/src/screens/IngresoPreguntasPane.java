@@ -62,6 +62,7 @@ public class IngresoPreguntasPane {
         //HashSet requerido previo agregación al mapa global
         HashSet <Respuesta> respuestas = new HashSet();
         
+        //TODO: Validar numero max y min de respuestas.
         for (int i = 0; i < line.length; i++){
             if (i == 0){
                 //Respuesta correcta en indice 0

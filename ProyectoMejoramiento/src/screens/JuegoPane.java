@@ -15,13 +15,21 @@ import javafx.scene.layout.BorderPane;
  */
 public class JuegoPane {
        BorderPane root;
+       //TODO: Añadir elementos de juego
        
        
     public JuegoPane(){
         root = new BorderPane();
+        //TODO: Inicializar elementos de juego
+        
+        
     
     
     }   
+    
+    //TODO: Crear metodo para verificar preguntas y respuestas.
+    //TODO: Crear metodo para determinar el puntaje y lidiar con los puntos seguros.
+    //TODO: Crear comodines
 
     public BorderPane getRoot() {
         return root;

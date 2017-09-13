@@ -40,4 +40,7 @@ public class Principal extends Application{
         primaryStage.setScene(s);
         primaryStage.show();
     }
+    
+    //TODO: Crear Javadoc
+    //TODO: Dibujar UML
 }
