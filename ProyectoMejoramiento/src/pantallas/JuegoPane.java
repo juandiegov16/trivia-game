@@ -10,6 +10,7 @@ import datos.Pregunta;
 import datos.Respuesta;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
@@ -48,9 +49,7 @@ public class JuegoPane {
    VBox box;       
 
    ArrayList<Pregunta> pregsJuego;
-   HashMap <Button, Respuesta> mapaBotonesRespuesta;
-   ArrayList<Integer> listaIndices;
-   ArrayList<Integer> listaSecundaria = new ArrayList<>();
+   public HashMap <Button, Respuesta> mapaBotonesRespuesta;
    int cantidadPreguntas;
    static int valorPausa = 1500;       
               
@@ -59,10 +58,11 @@ public class JuegoPane {
      */
     public JuegoPane(){
         pregsJuego = new ArrayList<>(Almacenamiento.getPreguntas());
+        Collections.shuffle(pregsJuego);
         cantidadPreguntas = pregsJuego.size();
         mapaBotonesRespuesta = new HashMap();
         root = new BorderPane();
-        root.setPrefSize(600,200);
+        root.setPrefSize(600,260);
         lblPregunta = new Label();
         numeroPregunta = new Label();
         lblPuntaje = new Label();
@@ -76,17 +76,14 @@ public class JuegoPane {
         box.setSpacing(10);
         box.setAlignment(Pos.CENTER);                
         root.setCenter(box);
+        btn50.setOnAction(e-> comodin50());
+        btnPAP.setOnAction(e ->comodinPAP());
+        
         comodines.getChildren().addAll(btn50, btnPAP, numeroPregunta, lblPuntaje);
         comodines.setSpacing(10);
         root.setBottom(comodines);
         
-        mostrarPregunta(lblPregunta, numeroPregunta);
-        
-        listaIndices = new ArrayList<>();        
-        for (int i = 0; i < cantidadPreguntas; i++) {
-            listaIndices.add(i);           
-        }
-        System.out.println(listaIndices); //Impresión de prueba (descomentar)        
+        mostrarPregunta(lblPregunta, numeroPregunta);       
     }   
     
     public void mostrarPregunta(Label lblPregunta, Label lblCorrecta){
@@ -179,9 +176,17 @@ public class JuegoPane {
     }
     
     //TODO: Crear metodo para comodin 50/50
-    void comodin50_50(){}
+    void comodin50(){
+        for (int i = 0; i < 2; i++){        
+            for (Button btnRespuesta: mapaBotonesRespuesta.keySet()){
+                if((mapaBotonesRespuesta.get(btnRespuesta)).esCorrecta == false){
+                    btnRespuesta.setDisable(true);
+                }            
+            }
+        }
+    }
     //TODO: Crear metodo para comodin de Pregunta al Publico
-    void comodinPreguntarAlPublico(){}
+    void comodinPAP(){}
     
     /**
      * Getter requerido para transicion a escena JuegoPane
