@@ -11,3 +11,10 @@ Cual de las siguientes es la forma correcta de implementar la interfaz salario p
 Cual de los siguientes metodos borra todos los elementos de la coleccion que invoca?;clear();delete();reset();refresh()
 Cual de los siguientes metodos debe ser definido por una clase implementando la interfaz java.lang.Runnable?;public void run();void run();void start();public void start()
 Que es cierto acerca de la herencia en Java?;Accedo a los metodos de la clase padre a traves de super();Una clase puede heredar de multiples clases;La herencia establece una relacion TIENE UN;La herencia no permite la sobrescritura
+Cual era el nombre original de Java?;Oak;Spruce;Latte;Chai
+"Final" tiene muchos usos. Cual es INCORRECTO?;final countdown - Tiempo previo a inicio de proceso;final class - No puede ser extendida;final field - Campo es una constante; final method - Metodo no puede ser sobreescrito;final variable - Valor de variable no se puede cambiar una vez asignada
+Cual de los siguientes es el valor por defecto de una variable local?;No asignado;null;0;Depende del tipo de variable
+Herencia representa:;Relacion ES-UN;Relacion TIENE-UN
+Que metodo debe ser implementado por todos los hilos (threads)?;run();wait();stop();start()
+En que consiste la sobrecarga de funciones?;Metodos con mismo nombre pero diferentes parametros;Metodos con mismo nombre pero diferentes returns;Metodos con mismo nombre, mismos parametros, pero distintos nombres de parametros
+De que modo se puede inducir el estado de espera para un hilo (thread)?;Todas las demas respuestas aplican;Invocar el metodo sleep();Invocar el metodo wait del objeto;Invocar el metodo suspend()

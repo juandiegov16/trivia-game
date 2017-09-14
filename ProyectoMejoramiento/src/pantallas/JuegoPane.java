@@ -47,17 +47,19 @@ public class JuegoPane {
    HBox comodines;
    VBox box;       
 
-   static ArrayList<Pregunta> pregsJuego;
+   ArrayList<Pregunta> pregsJuego;
    HashMap <Button, Respuesta> mapaBotonesRespuesta;
    ArrayList<Integer> listaIndices;
    ArrayList<Integer> listaSecundaria = new ArrayList<>();
+   int cantidadPreguntas;
    static int valorPausa = 1500;       
               
     /**
      * Pantalla de juego.
      */
     public JuegoPane(){
-        JuegoPane.pregsJuego = new ArrayList<>(Almacenamiento.getPreguntas());
+        pregsJuego = new ArrayList<>(Almacenamiento.getPreguntas());
+        cantidadPreguntas = pregsJuego.size();
         mapaBotonesRespuesta = new HashMap();
         root = new BorderPane();
         root.setPrefSize(600,200);
@@ -81,7 +83,7 @@ public class JuegoPane {
         mostrarPregunta(lblPregunta, numeroPregunta);
         
         listaIndices = new ArrayList<>();        
-        for (int i = 0; i < pregsJuego.size(); i++) {
+        for (int i = 0; i < cantidadPreguntas; i++) {
             listaIndices.add(i);           
         }
         System.out.println(listaIndices); //Impresión de prueba (descomentar)        
@@ -91,71 +93,26 @@ public class JuegoPane {
         box.getChildren().clear();
         mapaBotonesRespuesta.clear();
 //        System.out.println(pregsJuego); //Impresión de prueba del ArrayList
-        int numero = new Random().nextInt((pregsJuego.size()));
-            if(listaSecundaria.contains(numero)){
-                numero = new Random().nextInt((pregsJuego.size()));
-                listaSecundaria.add(numero);
-                System.out.println(listaSecundaria);
-                Pregunta pregunta = pregsJuego.get(numero);
+        int numero = new Random().nextInt(cantidadPreguntas);
+                Pregunta pregunta = pregsJuego.get(new Random().nextInt(cantidadPreguntas));
                 System.out.println(pregunta); //Impresión de prueba
+                pregsJuego.remove(pregunta);
+                cantidadPreguntas --;
+                System.out.println(cantidadPreguntas);
+                
+                if (preguntasCorrectas == 10){
+                    puntaje = 100; alertaPuntaje();
+                }
                 
                 for(Respuesta respuesta: Almacenamiento.mapaPR.get(pregunta)){
                     Button btnRespuesta = new Button(respuesta.toString());
-                    //btnRespuesta.setPrefWidth(Double.MAX_VALUE);
                     box.getChildren().add(btnRespuesta);
                     btnRespuesta.setOnAction((event) -> this.comportamientoBoton(event));
                     if (!mapaBotonesRespuesta.containsKey(btnRespuesta) && !mapaBotonesRespuesta.containsValue(respuesta)){
                         mapaBotonesRespuesta.put(btnRespuesta, respuesta);}}
                 
                 lblPregunta.setText(pregunta.toString());
-                lblCorrecta.setText("Pregunta " + (contadorPregunta)); 
-            }
-            else{
-                listaSecundaria.add(numero);
-                System.out.println(listaSecundaria);
-                Pregunta pregunta = pregsJuego.get(numero);
-                System.out.println(pregunta); //Impresión de prueba
-                
-                for(Respuesta respuesta: Almacenamiento.mapaPR.get(pregunta)){
-                    Button btnRespuesta = new Button(respuesta.toString());
-                    //btnRespuesta.setPrefWidth(Double.MAX_VALUE);
-                    box.getChildren().add(btnRespuesta);
-                    btnRespuesta.setOnAction((event) -> this.comportamientoBoton(event));
-                    if (!mapaBotonesRespuesta.containsKey(btnRespuesta) && !mapaBotonesRespuesta.containsValue(respuesta)){
-                        mapaBotonesRespuesta.put(btnRespuesta, respuesta);}}
-                
-                lblPregunta.setText(pregunta.toString());
-                lblCorrecta.setText("Pregunta " + (contadorPregunta));
-            }
-        
-        
-//        if ((listaSecundaria.contains(numero))){
-//            numero = new Random().nextInt((pregsJuego.size()));
-//            Pregunta pregunta = pregsJuego.get(numero);        
-//            for(Respuesta respuesta: Almacenamiento.mapaPR.get(pregunta)){
-//                Button btnRespuesta = new Button(respuesta.toString());
-//                //btnRespuesta.setPrefWidth(Double.MAX_VALUE);
-//                box.getChildren().add(btnRespuesta);
-//                btnRespuesta.setOnAction((event) -> this.comportamientoBoton(event));
-//                if (!mapaBotonesRespuesta.containsKey(btnRespuesta) && !mapaBotonesRespuesta.containsValue(respuesta)){
-//                    mapaBotonesRespuesta.put(btnRespuesta, respuesta);}}
-//
-//            lblPregunta.setText(pregunta.toString());
-//            lblCorrecta.setText("Pregunta " + (contadorPregunta));}        
-        //else{
-//          Pregunta pregunta = pregsJuego.get(numero);
-//          System.out.println(pregunta); //Impresión de prueba
-//            for(Respuesta respuesta: Almacenamiento.mapaPR.get(pregunta)){
-//                Button btnRespuesta = new Button(respuesta.toString());
-//                //btnRespuesta.setPrefWidth(Double.MAX_VALUE);
-//                box.getChildren().add(btnRespuesta);
-//                btnRespuesta.setOnAction((event) -> this.comportamientoBoton(event));
-//                if (!mapaBotonesRespuesta.containsKey(btnRespuesta) && !mapaBotonesRespuesta.containsValue(respuesta)){
-//                    mapaBotonesRespuesta.put(btnRespuesta, respuesta);}}
-//
-//            lblPregunta.setText(pregunta.toString());
-//            lblCorrecta.setText("Pregunta " + (contadorPregunta)); 
-        //}    
+                lblCorrecta.setText("Pregunta " + (contadorPregunta));            
     }
     
     private void comportamientoBoton(ActionEvent event){
@@ -178,40 +135,42 @@ public class JuegoPane {
             lblPuntaje.setText("Puntaje: " + puntaje);
             preguntasCorrectas += 1;
             contadorPregunta ++;
-                if(preguntasCorrectas == pregsJuego.size()){
-                    puntaje = (pregsJuego.size()*10);
-                    alertaPuntaje();
-                }
         }
-        else{
+        if((mapaBotonesRespuesta.get(b).esCorrecta == false)){
             verificarSeguro(preguntasCorrectas);
         }   
     }
     
     void verificarSeguro(int correctas){
-        if (correctas == 8){
-            puntaje = 80;
-            alertaPuntaje();
-        }
-        if (correctas == 6){
-            puntaje = 60;
-            alertaPuntaje();        
-        }
-        else{
-            puntaje = 0;
-            alertaPuntaje();
-        }
-    }    
-    //TODO: Crear metodo para comodin 50/50
-    void comodin50_50(){}
-    //TODO: Crear metodo para comodin de Pregunta al Publico
-    void comodinPreguntarAlPublico(){}
+        if (correctas >= 8){ puntaje = 80; aprobado(); alertaPuntaje();}
+        if (correctas >= 6){ puntaje = 60; aprobado(); alertaPuntaje();}
+        else{ puntaje = 0; reprobado(); alertaPuntaje();}
+    }
     
+    void aprobado(){
+        statusAprobado = true;
+    }
+    
+    void reprobado(){
+        statusAprobado = false;
+    }
+    
+    String imprimirStatusAprobacion(){
+        if (statusAprobado == true){
+            return "Aprobado";
+        }
+        if (statusAprobado == false){
+            return "Reprobado.";
+        }
+       return null;    
+    }
+
     void alertaPuntaje(){
         Alert fin = new Alert(Alert.AlertType.INFORMATION);
         fin.setTitle("Juego terminado.");
         fin.setHeaderText("Puntaje: " + puntaje);
-        fin.setContentText("Preguntas correctas: " + preguntasCorrectas + " de " + pregsJuego.size());
+        fin.setContentText("Preguntas correctas: " + preguntasCorrectas + " de 10. "
+                + imprimirStatusAprobacion());
         fin.showAndWait();
         
         //Termina de ejecutar
@@ -219,8 +178,11 @@ public class JuegoPane {
         System.exit(0);
     }
     
+    //TODO: Crear metodo para comodin 50/50
+    void comodin50_50(){}
+    //TODO: Crear metodo para comodin de Pregunta al Publico
+    void comodinPreguntarAlPublico(){}
     
-
     /**
      * Getter requerido para transicion a escena JuegoPane
      * @return
@@ -242,4 +204,5 @@ public class JuegoPane {
     public Label getNumeroPregunta() {
         return numeroPregunta;
     }
+    
 }

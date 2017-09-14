@@ -56,7 +56,7 @@ public class BaseDatos {
         root.setBottom(volver);
         
         //Evento que maneja la ChoiceBox
-        cbPreguntas.setOnMouseClicked(MouseEvent -> clicChoice());
+        cbPreguntas.setOnAction(MouseEvent -> clicChoice());
         //Evento de transicion a Menu
         volver.setOnMouseClicked(MouseEvent ->
                 sPrimario.setScene(new Scene(new Menu().getRoot())));
