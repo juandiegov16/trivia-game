@@ -29,7 +29,7 @@ public class Principal extends Application{
         //Aquí lee el archivo y agrega su contenido al programa
         cargarPreguntas("PreguntasJava1.txt");
         launch(args);
-        //Descomentar para hacer pruebas forzando cierre después de ciertos procesos
+        //Descomentar para hacer pruebas forzando cierre después de ciertos procesos(NO REMOVER IMPORT!)
         //Platform.exit();    
     }
     
@@ -41,12 +41,16 @@ public class Principal extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        sPrimario = primaryStage;               
-        primaryStage.setTitle("Quién quiere pasar POO?");
+        sPrimario = primaryStage;
         //Nos muestra la pantalla Menu, para comenzar. 
         Scene s = new Scene(new Menu().getRoot());
-        primaryStage.setScene(s);
-        primaryStage.show();
+        sPrimario.setTitle("Quién quiere pasar POO?");
+        sPrimario.setOnCloseRequest((event -> {  // Mata el TimerTask para mostrar la siguiente pregunta
+            Platform.exit();
+            System.exit(0);
+        }));
+        sPrimario.setScene(s);
+        sPrimario.show();
     }    
     
     //TODO: Dibujar UML
