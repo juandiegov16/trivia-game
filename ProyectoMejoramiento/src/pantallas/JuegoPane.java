@@ -177,14 +177,19 @@ public class JuegoPane {
     
     //TODO: Crear metodo para comodin 50/50
     void comodin50(){
-        for (int i = 0; i < 2; i++){        
+        int contadorComodin = 0;              
             for (Button btnRespuesta: mapaBotonesRespuesta.keySet()){
                 if((mapaBotonesRespuesta.get(btnRespuesta)).esCorrecta == false){
                     btnRespuesta.setDisable(true);
+                    contadorComodin++;                    
+                    if (contadorComodin == 2){                        
+                        btn50.setDisable(true);
+                        break;
+                    }
                 }            
-            }
-        }
+            }        
     }
+    
     //TODO: Crear metodo para comodin de Pregunta al Publico
     void comodinPAP(){}
     
