@@ -41,15 +41,28 @@ public class JuegoPane {
    
    //Elementos de JavaFX
    BorderPane root;
-   public Label lblPregunta;
-   public Label numeroPregunta;
+
+    /**
+     * (Estético)
+     */
+    public Label lblPregunta;
+
+    /**
+     * Bastante obvio; da el numero de la pregunta actual.
+     */
+    public Label numeroPregunta;
    Label lblPuntaje;
    Button btn50, btnPAP; 
    HBox comodines;
    VBox box;       
 
    ArrayList<Pregunta> pregsJuego;
-   public HashMap <Button, Respuesta> mapaBotonesRespuesta;
+
+    /**
+     * HashMap de Botones con sus respectivos contenidos (respuestas);
+     * cambia para cada pregunta
+     */
+    public HashMap <Button, Respuesta> mapaBotonesRespuesta;
    int cantidadPreguntas;
    static int valorPausa = 1500;       
               
@@ -86,6 +99,12 @@ public class JuegoPane {
         mostrarPregunta(lblPregunta, numeroPregunta);       
     }   
     
+    /**
+     * Muestra la pregunta a contestar;
+     * cambia el contenido de las etiquetas lblPregunta y numeroPregunta
+     * @param lblPregunta
+     * @param lblCorrecta
+     */
     public void mostrarPregunta(Label lblPregunta, Label lblCorrecta){
         box.getChildren().clear();
         mapaBotonesRespuesta.clear();
@@ -154,10 +173,10 @@ public class JuegoPane {
     
     String imprimirStatusAprobacion(){
         if (statusAprobado == true){
-            return "Aprobado";
+            return " Aprobado";
         }
         if (statusAprobado == false){
-            return "Reprobado.";
+            return " Reprobado.";
         }
        return null;    
     }
@@ -199,20 +218,5 @@ public class JuegoPane {
      */
     public BorderPane getRoot() {
         return root;
-    }
-
-    /**
-     * @return the lblPregunta
-     */
-    public Label getLblPregunta() {
-        return lblPregunta;
-    }
-
-    /**
-     * @return the numeroPregunta
-     */
-    public Label getNumeroPregunta() {
-        return numeroPregunta;
-    }
-    
+    }    
 }
