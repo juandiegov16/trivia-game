@@ -1,4 +1,4 @@
-//Este archivo es utilizado para almacenar preguntas y es leido por el juego
+﻿//Este archivo es utilizado para almacenar preguntas y es leido por el juego
 //Comentarios comienzan con "//"
 //Se pueden dejar lineas en blanco
 //Formato apropiado para agregar pregunta es:
@@ -18,3 +18,8 @@ Herencia representa:;Relacion ES-UN;Relacion TIENE-UN
 Que metodo debe ser implementado por todos los hilos (threads)?;run();wait();stop();start()
 En que consiste la sobrecarga de funciones?;Metodos con mismo nombre pero diferentes parametros;Metodos con mismo nombre pero diferentes returns;Metodos con mismo nombre, mismos parametros, pero distintos nombres de parametros
 De que modo se puede inducir el estado de espera para un hilo (thread)?;Todas las demas respuestas aplican;Invocar el metodo sleep();Invocar el metodo wait del objeto;Invocar el metodo suspend()
+
+Cuál de estos es un IDE de Java?;Todas las demas opciones;NetBeans;Eclipse;IntelliJ IDEA
+
+Cuál wrapper le corresponde al primitivo "int"?;Integer;Float;String
+Cuál wrapper le corresponde al primitivo float?;Float;Integer;String

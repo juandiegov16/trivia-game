@@ -43,7 +43,7 @@ public class JuegoPane {
    static int contadorPregunta = 1;
    static int preguntasCorrectas = 0;
    static boolean statusAprobado;
-   
+   static String jugador;   
    
    //Elementos de JavaFX
    BorderPane root;
@@ -118,10 +118,10 @@ public class JuegoPane {
 //        System.out.println(pregsJuego); //Impresión de prueba del ArrayList
         int numero = new Random().nextInt(cantidadPreguntas);
                 Pregunta pregunta = pregsJuego.get(new Random().nextInt(cantidadPreguntas));
-                System.out.println(pregunta); //Impresión de prueba
+                //System.out.println(pregunta); //Impresión de prueba
                 pregsJuego.remove(pregunta);
                 cantidadPreguntas --;
-                System.out.println(cantidadPreguntas);
+                //System.out.println(cantidadPreguntas);
                 
                 if (preguntasCorrectas == 10){
                     puntaje = 100; alertaPuntaje();
@@ -220,8 +220,8 @@ public class JuegoPane {
     void comodinPAP() {
         int contadorPAP = 0;
         Alert altPAP = new Alert(Alert.AlertType.INFORMATION);        
-        altPAP.setTitle("Pregunta al publico");
-        altPAP.setHeaderText("El publico opina: ");
+        altPAP.setTitle("El publico opina: ");
+        //altPAP.setHeaderText("Cerrando en " + contadorSeg + " segundos...");
         StringBuilder stringBuilder = new StringBuilder();
         Random r = new Random();
         Integer temp = 0;
@@ -254,13 +254,16 @@ public class JuegoPane {
             }
         }
            
-        altPAP.showAndWait();           
+        altPAP.show();           
         
             Thread cuentaAtras = new Thread(()->{                
                 while (contadorSeg > 0){
                     try{
-                        contadorSeg--;
-                        Thread.sleep(1000);                    
+                        Platform.runLater(() -> {
+                            altPAP.setHeaderText("Cerrando en " + contadorSeg + " segundo(s)...");
+                        });
+                        contadorSeg--;       
+                        Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(JuegoPane.class.getName()).log(Level.SEVERE, null, ex);
                     }                

@@ -82,6 +82,7 @@ public class Almacenamiento {
             
 //            Lee línea por línea, verifica que tengan algo de texto
             while(((line = bufferedReader.readLine()) != null)) {
+                if (line.length() > 0){
 //                Para ignorar las líneas de comentario en el archivo de texto
                 if (!(line.startsWith("//"))){
 //                    Crea una lista de Strings para cada línea a evaluar
@@ -108,6 +109,7 @@ public class Almacenamiento {
                     //Agrega Preguntas y Respuestas a nuestro HashSet y HashMap
                     Almacenamiento.getPreguntas().add(new Pregunta(listaLinea.get(0)));
                     Almacenamiento.getMapaPR().put(new Pregunta(listaLinea.get(0)), respuestas);    
+                }
                 }
             }
             //Impresiones de prueba, descomentar.

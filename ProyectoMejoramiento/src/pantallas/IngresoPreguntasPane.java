@@ -11,9 +11,17 @@ import static aplicacion.Principal.sPrimario;
 import datos.Almacenamiento;
 import datos.Pregunta;
 import datos.Respuesta;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -48,7 +56,14 @@ public class IngresoPreguntasPane {
         btnVolver = new Button("Volver a menu");
         
         //Eventos para botones (transicion de escena)        
-        btnIngresar.setOnMouseClicked(MouseEvent -> clicBtnIngresar());
+        btnIngresar.setOnMouseClicked(MouseEvent -> {
+            try {
+                clicBtnIngresar();
+            } catch (IOException ex) {
+                Logger.getLogger(IngresoPreguntasPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
         btnSiguiente.setOnMouseClicked(MouseEvent -> clicBtnSiguiente());
         btnVolver.setOnMouseClicked(MouseEvent ->
                 sPrimario.setScene(new Scene(new Menu().getRoot())));
@@ -58,31 +73,69 @@ public class IngresoPreguntasPane {
                 txtRespuestas, btnIngresar, btnSiguiente, btnVolver);
     }
     
-    void clicBtnIngresar(){
+    void clicBtnIngresar() throws IOException{
         //Devuelve un arreglo con las líneas del TextArea como Strings
         String[] line = txtRespuestas.getText().split("\n");
         
-        //HashSet requerido previo agregación al mapa global
-        HashSet <Respuesta> respuestas = new HashSet();
         
-        //TODO: Validar numero max y min de respuestas.
-        for (int i = 0; i < line.length; i++){
-            if (i == 0){
-                //Respuesta correcta en indice 0
-                Respuesta respuestaC = new Respuesta(line[i], true);
-                respuestas.add(respuestaC);            
+        //Preparando String a agregar al archivo
+        StringBuilder lineaArchivo = new StringBuilder();
+        lineaArchivo.append("\n");
+        lineaArchivo.append(txtPregunta.getText()).append(";");        
+        for(String parte: line){
+            lineaArchivo.append(parte);
+            if(!parte.equals(line[line.length - 1])){
+                lineaArchivo.append(";");
             }
-            else{
-                //Itera y agrega respuestas incorrectas a partir de indice 1
-                Respuesta respuestaI = new Respuesta(line[i], false);
-                respuestas.add(respuestaI);                
-            }       
         }
         
+        //HashSet requerido previo agregación al mapa global
+        HashSet <Respuesta> respuestas = new HashSet();        
+        
+        if(line.length < 2 || line.length > 5){
+            Alert respError = new Alert(Alert.AlertType.ERROR);
+            respError.setTitle("Error en ingreso de pregunta/respuestas.");
+            respError.setHeaderText("Ha ingresado un número no válido de respuestas.");
+            respError.setContentText("Vuelva a intentarlo, ingresando mínimo 2 y máximo 5.");
+            respError.showAndWait();           
+        }else{
+            for (int i = 0; i < line.length; i++){
+                if (i == 0){
+                    //Respuesta correcta en indice 0
+                    Respuesta respuestaC = new Respuesta(line[i], true);
+                    respuestas.add(respuestaC);            
+                }
+                else{
+                    //Itera y agrega respuestas incorrectas a partir de indice 1
+                    Respuesta respuestaI = new Respuesta(line[i], false);
+                    respuestas.add(respuestaI);                
+                }       
+            }
+            
         //Agrega exitosamente Preguntas y sets de Respuesta mediante ingreso manual
         Almacenamiento.getPreguntas().add(new Pregunta(txtPregunta.getText()));
         Almacenamiento.getMapaPR().put(new Pregunta(txtPregunta.getText()), respuestas);
+        
+        System.out.println(lineaArchivo);
+        
+        PrintWriter output;
+        output = new PrintWriter(new BufferedWriter(new FileWriter(("PreguntasJava1.txt"), true)));  //clears file every time
+        output.println(lineaArchivo);
+        output.close();
+        
+        //Alerta mostrando al usuario que ha ingresado bien
+        Alert respExito = new Alert(Alert.AlertType.INFORMATION);
+            respExito.setTitle("Éxito en ingreso de pregunta/respuestas.");
+            respExito.setHeaderText("Pregunta ingresada correctamente.");
+            respExito.setContentText("Ahora podrá utilizarla en el juego."
+                    + " Para comprobar, puede Ir a Base de Datos");
+            respExito.showAndWait();
+            
+            
+            }
     }
+    
+    
     
     //Transición de escena a la pantalla Base de Datos
     //Para verificar lo agregado
