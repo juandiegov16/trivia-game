@@ -124,7 +124,7 @@ public class JuegoPane {
                 //System.out.println(cantidadPreguntas);
                 
                 if (preguntasCorrectas == 10){
-                    puntaje = 100; alertaPuntaje();
+                    puntaje = 100; aprobado(); alertaPuntaje();
                 }
                 
                 for(Respuesta respuesta: Almacenamiento.mapaPR.get(pregunta)){

@@ -1,0 +1,6 @@
+//Este archivo es utilizado para almacenar preguntas y es leido por el juego
+//Comentarios comienzan con "//"
+//Se pueden dejar lineas en blanco
+//Formato apropiado para agregar pregunta es:
+//pregunta ; respuesta correcta ; respuesta incorrecta ; respuesta incorrecta ; respuesta incorrecta ; respuesta incorrecta
+//Terminos separados por punto-y-coma

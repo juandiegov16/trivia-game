@@ -5,6 +5,7 @@
  */
 package pantallas;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
@@ -13,6 +14,8 @@ import javafx.scene.layout.VBox;
  */
 public class RegistroPane{
     VBox root;
+    Label txtJugador;
+    
     //TODO: Crear resto de elementos
     
     /**
