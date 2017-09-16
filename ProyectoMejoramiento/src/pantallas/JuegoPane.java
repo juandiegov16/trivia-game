@@ -9,10 +9,8 @@ import datos.Almacenamiento;
 import datos.Pregunta;
 import datos.Respuesta;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,18 +18,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  *
@@ -190,7 +184,7 @@ public class JuegoPane {
 
     void alertaPuntaje(){
         Alert fin = new Alert(Alert.AlertType.INFORMATION);
-        fin.setTitle("Juego terminado.");
+        fin.setTitle(jugador + ", su juego ha terminado.");
         fin.setHeaderText("Puntaje: " + puntaje);
         fin.setContentText("Preguntas correctas: " + preguntasCorrectas + " de 10. "
                 + imprimirStatusAprobacion());
@@ -201,7 +195,6 @@ public class JuegoPane {
         System.exit(0);
     }
     
-    //TODO: Crear metodo para comodin 50/50
     void comodin50(){
         int contadorComodin = 0;              
             for (Button btnRespuesta: mapaBotonesRespuesta.keySet()){
@@ -216,7 +209,6 @@ public class JuegoPane {
             }        
     }
     
-    //TODO: Crear metodo para comodin de Pregunta al Publico
     void comodinPAP() {
         int contadorPAP = 0;
         Alert altPAP = new Alert(Alert.AlertType.INFORMATION);        

@@ -41,7 +41,7 @@ public class Menu {
         
         //Eventos de transición de escena para botones del Menu
         nuevoJuego.setOnMouseClicked(e -> 
-                sPrimario.setScene(new Scene(new JuegoPane().getRoot())));
+                sPrimario.setScene(new Scene(new RegistroPane().getRoot())));
         
         ingresoPreguntas.setOnMouseClicked(e -> 
                 sPrimario.setScene(new Scene(new IngresoPreguntasPane().getRoot())));
