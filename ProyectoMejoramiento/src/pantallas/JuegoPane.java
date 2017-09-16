@@ -16,16 +16,22 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -64,7 +70,8 @@ public class JuegoPane {
      */
     public HashMap <Button, Respuesta> mapaBotonesRespuesta;
    int cantidadPreguntas;
-   static int valorPausa = 1500;       
+   static int valorPausa = 1500;
+   int contadorSeg = 5;
               
     /**
      * Pantalla de juego.
@@ -90,7 +97,7 @@ public class JuegoPane {
         box.setAlignment(Pos.CENTER);                
         root.setCenter(box);
         btn50.setOnAction(e-> comodin50());
-        btnPAP.setOnAction(e ->comodinPAP());
+        btnPAP.setOnAction(e -> comodinPAP());
         
         comodines.getChildren().addAll(btn50, btnPAP, numeroPregunta, lblPuntaje);
         comodines.setSpacing(10);
@@ -210,8 +217,62 @@ public class JuegoPane {
     }
     
     //TODO: Crear metodo para comodin de Pregunta al Publico
-    void comodinPAP(){}
+    void comodinPAP() {
+        int contadorPAP = 0;
+        Alert altPAP = new Alert(Alert.AlertType.INFORMATION);        
+        altPAP.setTitle("Pregunta al publico");
+        altPAP.setHeaderText("El publico opina: ");
+        StringBuilder stringBuilder = new StringBuilder();
+        Random r = new Random();
+        Integer temp = 0;
+        Integer suma = 0;
+        ArrayList<Float> numerosRandom = new ArrayList<>();
+        
+        for (int i = 1; i<= 3; i++){
+            if (!(i == 3)){
+                temp = r.nextInt((100 - suma) / (3 - i)) + 1;
+                numerosRandom.add(temp.floatValue());
+                suma += temp;            
+            }
+            else{
+                Integer ultimo = (100 - suma);
+                numerosRandom.add(ultimo.floatValue());
+                suma += ultimo;            
+            }        
+        }        
+               
+        for(Button btnRespuesta: mapaBotonesRespuesta.keySet()){                
+            Label lblResp = new Label(mapaBotonesRespuesta.get(btnRespuesta).toString()
+                    + " " + ((numerosRandom.get(contadorPAP))) + "%");
+            stringBuilder.append(lblResp.getText()).append("\n");;
+            contadorPAP++;
+
+            if (contadorPAP == 3){
+                altPAP.setContentText(stringBuilder.toString());
+                btnPAP.setDisable(true);
+                break;                
+            }
+        }
+           
+        altPAP.showAndWait();           
+        
+            Thread cuentaAtras = new Thread(()->{                
+                while (contadorSeg > 0){
+                    try{
+                        contadorSeg--;
+                        Thread.sleep(1000);                    
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(JuegoPane.class.getName()).log(Level.SEVERE, null, ex);
+                    }                
+                }
+                Platform.runLater(()-> {
+                    altPAP.close();               
+                });
+            });
+        cuentaAtras.start();            
+        }
     
+        
     /**
      * Getter requerido para transicion a escena JuegoPane
      * @return
