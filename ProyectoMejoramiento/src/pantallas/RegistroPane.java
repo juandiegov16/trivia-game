@@ -6,6 +6,10 @@
 package pantallas;
 
 import static aplicacion.Principal.sPrimario;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -70,13 +74,26 @@ public class RegistroPane{
             btnJugar.setDisable(false);
             altSJ.showAndWait();
             JuegoPane.jugador = txtJugador.getText().toUpperCase();
-            System.out.println(JuegoPane.jugador);        
+            //System.out.println(JuegoPane.jugador);
         }   
     }
     
     
     //TODO: Crear metodo para guardar usuarios y puntajes.   
-
+    public static void guardar() throws IOException{
+        StringBuilder lineaJugador = new StringBuilder();
+        lineaJugador.append("\n");
+        lineaJugador.append(JuegoPane.jugador);
+        lineaJugador.append("//").append(JuegoPane.puntaje);
+        //System.out.println(lineaJugador);        
+        
+        PrintWriter output;
+        output = new PrintWriter(new BufferedWriter(new FileWriter(("Jugadores.txt"), true)));
+        output.println(lineaJugador);
+        output.close();
+    }
+    
+    
     /**
      * Getter requerido para transicion a escena RegistroPane.
      * @return

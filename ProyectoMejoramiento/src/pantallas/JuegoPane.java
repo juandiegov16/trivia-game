@@ -8,6 +8,7 @@ package pantallas;
 import datos.Almacenamiento;
 import datos.Pregunta;
 import datos.Respuesta;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import static pantallas.RegistroPane.guardar;
 
 /**
  *
@@ -97,7 +99,11 @@ public class JuegoPane {
         comodines.setSpacing(10);
         root.setBottom(comodines);
         
-        mostrarPregunta(lblPregunta, numeroPregunta);       
+       try {       
+           mostrarPregunta(lblPregunta, numeroPregunta);
+       } catch (IOException ex) {
+           Logger.getLogger(JuegoPane.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }   
     
     /**
@@ -106,7 +112,7 @@ public class JuegoPane {
      * @param lblPregunta
      * @param lblCorrecta
      */
-    public void mostrarPregunta(Label lblPregunta, Label lblCorrecta){
+    public void mostrarPregunta(Label lblPregunta, Label lblCorrecta) throws IOException{
         box.getChildren().clear();
         mapaBotonesRespuesta.clear();
 //        System.out.println(pregsJuego); //Impresión de prueba del ArrayList
@@ -124,7 +130,13 @@ public class JuegoPane {
                 for(Respuesta respuesta: Almacenamiento.mapaPR.get(pregunta)){
                     Button btnRespuesta = new Button(respuesta.toString());
                     box.getChildren().add(btnRespuesta);
-                    btnRespuesta.setOnAction((event) -> this.comportamientoBoton(event));
+                    btnRespuesta.setOnAction((event) -> {
+                        try {
+                            this.comportamientoBoton(event);
+                        } catch (IOException ex) {
+                            Logger.getLogger(JuegoPane.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
                     if (!mapaBotonesRespuesta.containsKey(btnRespuesta) && !mapaBotonesRespuesta.containsValue(respuesta)){
                         mapaBotonesRespuesta.put(btnRespuesta, respuesta);}}
                 
@@ -132,7 +144,7 @@ public class JuegoPane {
                 lblCorrecta.setText("Pregunta " + (contadorPregunta));            
     }
     
-    private void comportamientoBoton(ActionEvent event){
+    private void comportamientoBoton(ActionEvent event) throws IOException{
         ((Node)event.getSource()).setDisable(true);
         verificarCorrecta((Button)event.getSource(), lblPuntaje);
         
@@ -140,13 +152,17 @@ public class JuegoPane {
         tiempo.schedule(new TimerTask() {
             @Override
             public void run() { Platform.runLater(() -> {
+                try {
                     //Muestra siguiente pregunta
                     mostrarPregunta(lblPregunta, numeroPregunta);
+                } catch (IOException ex) {
+                    Logger.getLogger(JuegoPane.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     ((Button)event.getSource()).setDisable(false);
                 });}}, valorPausa);
     }
     
-    void verificarCorrecta(Button b, Label lblPuntaje){
+    void verificarCorrecta(Button b, Label lblPuntaje) throws IOException{
         if((mapaBotonesRespuesta.get(b).esCorrecta == true)){        
             puntaje += 10;
             lblPuntaje.setText("Puntaje: " + puntaje);
@@ -158,7 +174,7 @@ public class JuegoPane {
         }   
     }
     
-    void verificarSeguro(int correctas){
+    void verificarSeguro(int correctas) throws IOException{
         if (correctas >= 8){ puntaje = 80; aprobado(); alertaPuntaje();}
         if (correctas >= 6){ puntaje = 60; aprobado(); alertaPuntaje();}
         else{ puntaje = 0; reprobado(); alertaPuntaje();}
@@ -182,12 +198,13 @@ public class JuegoPane {
        return null;    
     }
 
-    void alertaPuntaje(){
+    void alertaPuntaje() throws IOException{
         Alert fin = new Alert(Alert.AlertType.INFORMATION);
         fin.setTitle(jugador + ", su juego ha terminado.");
         fin.setHeaderText("Puntaje: " + puntaje);
         fin.setContentText("Preguntas correctas: " + preguntasCorrectas + " de 10. "
                 + imprimirStatusAprobacion());
+        guardar();
         fin.showAndWait();
         
         //Termina de ejecutar
