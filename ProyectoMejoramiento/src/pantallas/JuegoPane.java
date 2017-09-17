@@ -111,6 +111,7 @@ public class JuegoPane {
      * cambia el contenido de las etiquetas lblPregunta y numeroPregunta
      * @param lblPregunta
      * @param lblCorrecta
+     * @throws java.io.IOException
      */
     public void mostrarPregunta(Label lblPregunta, Label lblCorrecta) throws IOException{
         box.getChildren().clear();
@@ -127,6 +128,7 @@ public class JuegoPane {
                     puntaje = 100; aprobado(); alertaPuntaje();
                 }
                 
+                //Creación dinámica de botones para las respuestas
                 for(Respuesta respuesta: Almacenamiento.mapaPR.get(pregunta)){
                     Button btnRespuesta = new Button(respuesta.toString());
                     box.getChildren().add(btnRespuesta);
@@ -140,6 +142,7 @@ public class JuegoPane {
                     if (!mapaBotonesRespuesta.containsKey(btnRespuesta) && !mapaBotonesRespuesta.containsValue(respuesta)){
                         mapaBotonesRespuesta.put(btnRespuesta, respuesta);}}
                 
+                //Texto de referencia para la pregunta actual
                 lblPregunta.setText(pregunta.toString());
                 lblCorrecta.setText("Pregunta " + (contadorPregunta));            
     }
@@ -204,6 +207,7 @@ public class JuegoPane {
         fin.setHeaderText("Puntaje: " + puntaje);
         fin.setContentText("Preguntas correctas: " + preguntasCorrectas + " de 10. "
                 + imprimirStatusAprobacion());
+        //Puntaje y usuario guardados en archivo
         guardar();
         fin.showAndWait();
         
@@ -212,6 +216,7 @@ public class JuegoPane {
         System.exit(0);
     }
     
+    // Elimina dos respuestas incorrectas al azar.    
     void comodin50(){
         int contadorComodin = 0;              
             for (Button btnRespuesta: mapaBotonesRespuesta.keySet()){
@@ -226,17 +231,22 @@ public class JuegoPane {
             }        
     }
     
+    /* Muestra 3 respuestas al azar, que pueden o no incluir la respuesta correcta.
+    Asigna un porcentaje a cada respuesta (entre todos suman 100%).
+    Todo lo anterior será visible por 5 solamente 5 segundos.    
+    */
     void comodinPAP() {
         int contadorPAP = 0;
         Alert altPAP = new Alert(Alert.AlertType.INFORMATION);        
         altPAP.setTitle("El publico opina: ");
-        //altPAP.setHeaderText("Cerrando en " + contadorSeg + " segundos...");
         StringBuilder stringBuilder = new StringBuilder();
         Random r = new Random();
         Integer temp = 0;
         Integer suma = 0;
         ArrayList<Float> numerosRandom = new ArrayList<>();
         
+        //Crea los porcentajes para cada respuesta, asegurándose que sumen 100
+        //y sean valores positivos.
         for (int i = 1; i<= 3; i++){
             if (!(i == 3)){
                 temp = r.nextInt((100 - suma) / (3 - i)) + 1;
@@ -249,22 +259,29 @@ public class JuegoPane {
                 suma += ultimo;            
             }        
         }        
-               
+        
+        //Crea el texto con las respuestas para la alerta del comodín
         for(Button btnRespuesta: mapaBotonesRespuesta.keySet()){                
             Label lblResp = new Label(mapaBotonesRespuesta.get(btnRespuesta).toString()
                     + " " + ((numerosRandom.get(contadorPAP))) + "%");
-            stringBuilder.append(lblResp.getText()).append("\n");;
+            stringBuilder.append(lblResp.getText()).append("\n");
             contadorPAP++;
-
+            
+            //Asigna el texto y deshabilita el btnPAP
             if (contadorPAP == 3){
                 altPAP.setContentText(stringBuilder.toString());
                 btnPAP.setDisable(true);
                 break;                
             }
         }
-           
-        altPAP.show();           
         
+        //Muestra la alerta.
+        //Nótese que al usar show() en vez de showAndWait(), se puede
+        //implementar un cierre temporizado, como se requiere.
+        altPAP.show();           
+            
+            //Muestra la cuenta regresiva del comodín Preguntar al Público.
+            //Cierra la respectiva alerta cuando se acaba el tiempo.
             Thread cuentaAtras = new Thread(()->{                
                 while (contadorSeg > 0){
                     try{

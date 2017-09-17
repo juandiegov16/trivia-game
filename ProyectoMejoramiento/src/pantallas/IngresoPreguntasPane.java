@@ -33,6 +33,7 @@ import javafx.scene.layout.VBox;
  * @author Juandi
  */
 public class IngresoPreguntasPane {
+    //Elementos del pane
     VBox root;
     Label lblPregunta, lblRespuestas;
     TextField txtPregunta;
@@ -55,7 +56,7 @@ public class IngresoPreguntasPane {
         btnSiguiente = new Button("Ir a Base de Datos");
         btnVolver = new Button("Volver a menu");
         
-        //Eventos para botones (transicion de escena)        
+        //Ingresar la pregunta al documento y al juego.        
         btnIngresar.setOnMouseClicked(MouseEvent -> {
             try {
                 clicBtnIngresar();
@@ -64,6 +65,7 @@ public class IngresoPreguntasPane {
             }
         });
         
+        //Eventos para botones (transicion de escena)
         btnSiguiente.setOnMouseClicked(MouseEvent -> clicBtnSiguiente());
         btnVolver.setOnMouseClicked(MouseEvent ->
                 sPrimario.setScene(new Scene(new Menu().getRoot())));
@@ -73,10 +75,10 @@ public class IngresoPreguntasPane {
                 txtRespuestas, btnIngresar, btnSiguiente, btnVolver);
     }
     
+    //Lee el TextField y el TextArea, para agregar la pregunta al juego.
     void clicBtnIngresar() throws IOException{
         //Devuelve un arreglo con las líneas del TextArea como Strings
-        String[] line = txtRespuestas.getText().split("\n");
-        
+        String[] line = txtRespuestas.getText().split("\n");        
         
         //Preparando String a agregar al archivo
         StringBuilder lineaArchivo = new StringBuilder();
@@ -92,13 +94,16 @@ public class IngresoPreguntasPane {
         //HashSet requerido previo agregación al mapa global
         HashSet <Respuesta> respuestas = new HashSet();        
         
+        //Validación del mínimo y máximo de respuestas
         if(line.length < 2 || line.length > 5){
             Alert respError = new Alert(Alert.AlertType.ERROR);
             respError.setTitle("Error en ingreso de pregunta/respuestas.");
             respError.setHeaderText("Ha ingresado un número no válido de respuestas.");
             respError.setContentText("Vuelva a intentarlo, ingresando mínimo 2 y máximo 5.");
             respError.showAndWait();           
-        }else{
+        }
+        //Si el número de respuestas es válido, procede a agregar.
+        else{
             for (int i = 0; i < line.length; i++){
                 if (i == 0){
                     //Respuesta correcta en indice 0
@@ -116,8 +121,9 @@ public class IngresoPreguntasPane {
         Almacenamiento.getPreguntas().add(new Pregunta(txtPregunta.getText()));
         Almacenamiento.getMapaPR().put(new Pregunta(txtPregunta.getText()), respuestas);
         
-        System.out.println(lineaArchivo);
+        //System.out.println(lineaArchivo); //Impresión de prueba
         
+        //Escribe la pregunta al archivo, en el formato especificado.
         PrintWriter output;
         output = new PrintWriter(new BufferedWriter(new FileWriter(("PreguntasJava1.txt"), true)));  //clears file every time
         output.println(lineaArchivo);
@@ -130,8 +136,6 @@ public class IngresoPreguntasPane {
             respExito.setContentText("Ahora podrá utilizarla en el juego."
                     + " Para comprobar, puede Ir a Base de Datos");
             respExito.showAndWait();
-            
-            
             }
     }
     

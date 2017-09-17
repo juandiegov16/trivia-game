@@ -10,8 +10,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -25,15 +23,30 @@ import javafx.scene.layout.VBox;
  * @author Juandi
  */
 public class RegistroPane{
+    /**
+     * Agrega el nombre del jugador con su puntaje en la sesión actual a un documento txt.
+     * @throws IOException
+     */
+    public static void guardar() throws IOException{
+        StringBuilder lineaJugador = new StringBuilder();
+        lineaJugador.append("\n");
+        lineaJugador.append(JuegoPane.jugador);
+        lineaJugador.append("//").append(JuegoPane.puntaje);
+        //System.out.println(lineaJugador);  //Impresión de prueba
+        
+        PrintWriter output;
+        output = new PrintWriter(new BufferedWriter(new FileWriter(("Jugadores.txt"), true)));
+        output.println(lineaJugador);
+        output.close();
+    }
     VBox root;
     Label lblJugador;
     TextField txtJugador;
     Button btnRegistrar, btnJugar;
-    HBox boxBotones;
-    
+    HBox boxBotones;    
     
     /**
-     * Permite ingresar y serializar usuarios/puntajes.
+     * Permite ingresar y guardar usuarios/puntajes.
      */
     public RegistroPane(){
         root = new VBox();
@@ -46,6 +59,7 @@ public class RegistroPane{
         btnJugar = new Button("Jugar");
         btnJugar.setDisable(true);
         btnJugar.setOnAction(e -> {
+            //btnJugar arranca deshabilitado, para forzar previo registro.
             btnJugar.setDisable(true);
             sPrimario.setScene(new Scene(new JuegoPane().getRoot()));
         });
@@ -57,7 +71,8 @@ public class RegistroPane{
         root.getChildren().addAll(lblJugador, txtJugador, boxBotones);
     }
     
-    void verificarJugador(){
+    // Valida si el usuario ha ingresado nombre, y permite jugar luego de esto.    
+    public void verificarJugador(){
         if(!(txtJugador.getText().length() > 0)){
             Alert altEJ = new Alert(Alert.AlertType.ERROR);
             altEJ.setTitle("Error de registro");
@@ -71,28 +86,13 @@ public class RegistroPane{
             altSJ.setHeaderText("Se ha guardado su nombre." + "\n"
                     + "Puede jugar.");
             btnRegistrar.setDisable(true);
+            //Ahora se puede jugar.
             btnJugar.setDisable(false);
             altSJ.showAndWait();
             JuegoPane.jugador = txtJugador.getText().toUpperCase();
             //System.out.println(JuegoPane.jugador);
         }   
     }
-    
-    
-    //TODO: Crear metodo para guardar usuarios y puntajes.   
-    public static void guardar() throws IOException{
-        StringBuilder lineaJugador = new StringBuilder();
-        lineaJugador.append("\n");
-        lineaJugador.append(JuegoPane.jugador);
-        lineaJugador.append("//").append(JuegoPane.puntaje);
-        //System.out.println(lineaJugador);        
-        
-        PrintWriter output;
-        output = new PrintWriter(new BufferedWriter(new FileWriter(("Jugadores.txt"), true)));
-        output.println(lineaJugador);
-        output.close();
-    }
-    
     
     /**
      * Getter requerido para transicion a escena RegistroPane.

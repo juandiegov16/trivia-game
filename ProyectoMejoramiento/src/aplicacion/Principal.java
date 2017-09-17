@@ -45,7 +45,7 @@ public class Principal extends Application{
         //Nos muestra la pantalla Menu, para comenzar. 
         Scene s = new Scene(new Menu().getRoot());
         sPrimario.setTitle("Quién quiere pasar POO?");
-        sPrimario.setOnCloseRequest((event -> {  // Mata el TimerTask para mostrar la siguiente pregunta
+        sPrimario.setOnCloseRequest((event -> {  // Cierra el programa totalmente.
             Platform.exit();
             System.exit(0);
         }));
